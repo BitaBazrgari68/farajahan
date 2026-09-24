@@ -1,0 +1,621 @@
+{
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "cart": "Cart",
+    "checkout": "Checkout"
+  },
+  "home": {
+    "title": "Premium Coffee",
+    "subtitle": "Best coffee in the world"
+  },
+  "header": {
+    "shop": "Shop",
+    "specialtyCoffee": "Specialty Coffee",
+    "instantCoffee": "Instant Coffee",
+    "blog": "Blog",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "search": "Search",
+    "cart": "Shopping Cart",
+    "account": "Account",
+    "mainNavigation": "Main navigation"
+  },
+  "hero": {
+    "eyebrow": "Coffee for every moment",
+    "titleLine1": "Every cup...",
+    "titleLine2": "starts a new story.",
+    "description": "We carefully select the finest coffees to bring you a truly different coffee experience.",
+    "productsButton": "View Products",
+    "aboutButton": "About Us",
+    "imageAlt": "Farajahan coffee products"
+  },
+  "benefits": {
+    "quality": {
+      "title": "Quality Guarantee",
+      "description": "Carefully selected and quality-controlled at every stage"
+    },
+    "freshRoast": {
+      "title": "Freshly Roasted",
+      "description": "Freshly roasted coffee to preserve its aroma and flavor"
+    },
+    "shipping": {
+      "title": "Fast Shipping",
+      "description": "Your order is shipped quickly and carefully"
+    }
+  },
+  "audienceCategories": {
+    "title": "Coffee for You",
+    "description": "Choose the right products based on how you enjoy your coffee",
+    "home": {
+      "title": "For Home",
+      "description": "Coffee and products perfect for enjoying at home",
+      "button": "View Products"
+    },
+    "cafe": {
+      "title": "For Cafés",
+      "description": "Professional coffee products for cafés and coffee shops",
+      "button": "View Products"
+    },
+    "business": {
+      "title": "For Business",
+      "description": "Coffee solutions for businesses and organizations",
+      "button": "View Products"
+    }
+  },
+  "shop": {
+    "categories": {
+      "coffee": "Coffee",
+      "250g": "250g Products",
+      "powder-products": "Powder Products",
+      "abmive": "Fruit Drinks"
+    },
+    "product": {
+      "currency": "Toman"
+    }
+  },
+  "coffeeFinderCTA": {
+    "eyebrow": "Coffee Finder",
+    "title": "Farajahan's barista will find the right coffee for you",
+    "description": "Answer a few short questions about your taste, experience, and budget to discover the coffee and equipment that best suit your needs.",
+    "button": "Start Coffee Finder",
+    "imageAlt": "Farajahan barista"
+  },
+  "coffeeExperience": {
+    "eyebrow": "Our Expertise",
+    "title": "6 Years of Specialty Coffee Roasting Experience",
+    "description": "At Farajahan, we combine traditional coffee roasting techniques with modern knowledge to bring you the finest specialty coffee beans from around the world.",
+    "button": "Learn More"
+  },
+  "faq": {
+    "eyebrow": "Coffee Guide",
+    "title": "Frequently Asked Questions",
+    "description": "Answers to common questions about choosing and buying coffee for home, cafes, and businesses.",
+    "arabicaRobusta": {
+      "question": "Is Arabica better than Robusta?",
+      "answer": "Arabica and Robusta differ in flavor, aroma, caffeine content, and cup characteristics. The right choice depends on your taste, brewing method, and the coffee experience you are looking for.",
+      "linkLabel": "Explore Arabica and Robusta coffees"
+    },
+    "espresso": {
+      "question": "What is the best coffee for espresso?",
+      "answer": "The right coffee for espresso depends on your preferred flavor, intensity, and blend. Different Arabica and Robusta combinations can create different espresso experiences.",
+      "linkLabel": "Explore coffees for home"
+    },
+    "caffeine": {
+      "question": "Which type of coffee has more caffeine?",
+      "answer": "Robusta generally contains more caffeine than Arabica. If you prefer a coffee with higher caffeine content, you can explore blends with a higher percentage of Robusta.",
+      "linkLabel": "Explore Robusta coffees"
+    },
+    "chooseCoffee": {
+      "question": "How do I choose the right coffee for me?",
+      "answer": "Choosing the right coffee depends on your preferred flavor, caffeine level, brewing method, and how you plan to drink it. For home use, you can explore coffees based on your needs.",
+      "linkLabel": "Explore coffees for home"
+    },
+    "cafe": {
+      "question": "What type of coffee is suitable for a cafe?",
+      "answer": "Choosing coffee for a cafe depends on the menu, customer preferences, consumption volume, and desired blend. Explore Farajahan's coffee selection for cafes.",
+      "linkLabel": "Explore coffees for cafes"
+    },
+    "business": {
+      "question": "What options are available for buying coffee in bulk?",
+      "answer": "For businesses with higher coffee consumption, choosing the right blend and package size is important. Farajahan offers coffee products designed for different business needs.",
+      "linkLabel": "Explore coffees for businesses"
+    }
+  },
+  "footer": {
+    "aboutTitle": "About Farajahan",
+    "aboutDescription": "Specialists in specialty coffee roasting with more than 6 years of experience. We bring you the finest coffee beans from around the world.",
+    "linksTitle": "Important Links",
+    "link1": "Home",
+    "link2": "Products",
+    "link3": "About Us",
+    "link4": "Blog",
+    "contactTitle": "Contact Us",
+    "phone": "+98 912 3456 789",
+    "email": "info@farajahan.com",
+    "address": "Mashhad, Iran",
+    "copyright": "© 1403 Farajahan. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  },
+  "coffeeFinder": {
+    "imageAlt": "Farajahan barista",
+    "eyebrow": "Coffee Finder",
+    "title": "Find the right coffee for you",
+    "description": "Answer a few questions and discover the coffee and equipment that best match your needs.",
+    "businessTypes": {
+      "home": {
+        "title": "Home",
+        "description": "Find the right coffee and equipment for your home"
+      },
+      "cafe": {
+        "title": "Café & Restaurant",
+        "description": "Find the right coffee and equipment for your business"
+      },
+      "office": {
+        "title": "Office & Organization",
+        "description": "Find coffee that fits your workplace needs"
+      },
+      "wholesale": {
+        "title": "Wholesale & Distribution",
+        "description": "For wholesale, resale, distribution, and industrial supply"
+      }
+    },
+    "progress": "Step {current} of {total}",
+    "questionLabel": "Your choice",
+    "previous": "Back",
+    "next": "Continue",
+    "finish": "See Results",
+    "nextStep": {
+      "title": "Now let's learn more about your needs",
+      "description": "The next questions will be based on the path you selected."
+    },
+    "selectedType": "Selected path",
+    "questions": {
+      "experience": {
+        "title": "How experienced are you in preparing coffee?",
+        "options": {
+          "beginner": "Beginner",
+          "intermediate": "Intermediate",
+          "professional": "Professional"
+        }
+      },
+      "drinkingTime": {
+        "title": "When do you usually drink coffee?",
+        "options": {
+          "morning": "Morning",
+          "daytime": "During the day",
+          "evening": "Evening",
+          "allDay": "Throughout the day"
+        }
+      },
+      "dailyCups": {
+        "title": "How many cups of coffee do you drink per day?",
+        "options": {
+          "one": "1 cup",
+          "two": "2 cups",
+          "threeToFour": "3–4 cups",
+          "moreThanFour": "More than 4 cups"
+        }
+      },
+      "brewMethod": {
+        "title": "How do you usually prepare your coffee?",
+        "options": {
+          "espresso": "Espresso",
+          "mokaPot": "Moka Pot",
+          "v60": "V60",
+          "frenchPress": "French Press",
+          "aeropress": "AeroPress",
+          "turkish": "Turkish Coffee",
+          "none": "I don't have a specific method yet"
+        }
+      },
+      "flavors": {
+        "title": "Which flavors do you prefer?",
+        "options": {
+          "chocolate": "Chocolate",
+          "caramel": "Caramel",
+          "nutty": "Nutty",
+          "fruity": "Fruity",
+          "floral": "Floral",
+          "citrus": "Citrus",
+          "spicy": "Spicy",
+          "sweet": "Sweet"
+        }
+      },
+      "intensity": {
+        "title": "How strong do you like your coffee?",
+        "options": {
+          "mild": "Mild",
+          "balanced": "Balanced",
+          "strong": "Strong",
+          "veryStrong": "Very strong"
+        }
+      },
+      "caffeine": {
+        "title": "How much caffeine do you prefer?",
+        "options": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High",
+          "veryHigh": "Very high"
+        }
+      },
+      "arabicaRobusta": {
+        "title": "What Arabica-to-Robusta ratio do you prefer?",
+        "options": {
+          "100Arabica": "100% Arabica",
+          "arabicaDominant": "Arabica dominant",
+          "balancedBlend": "Balanced blend",
+          "robustaDominant": "Robusta dominant",
+          "100Robusta": "100% Robusta",
+          "noPreference": "No preference"
+        }
+      },
+      "hasGrinder": {
+        "title": "Do you have a coffee grinder?",
+        "options": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      },
+      "equipmentStatus": {
+        "title": "Do you have coffee brewing equipment?",
+        "options": {
+          "complete": "Yes, I have everything I need",
+          "partial": "I have some of the equipment",
+          "none": "I don't have any equipment"
+        }
+      },
+      "equipment": {
+        "title": "Which equipment do you currently have?",
+        "options": {
+          "espressoMachine": "Espresso machine",
+          "grinder": "Grinder",
+          "mokaPot": "Moka Pot",
+          "v60": "V60",
+          "frenchPress": "French Press",
+          "aeropress": "AeroPress",
+          "kettle": "Kettle",
+          "scale": "Scale",
+          "tamper": "Tamper",
+          "server": "Server",
+          "none": "None"
+        }
+      },
+      "budget": {
+        "title": "What budget do you have in mind for this purchase?",
+        "options": {
+          "economy": "Economy",
+          "medium": "Medium",
+          "professional": "Professional",
+          "unlimited": "No limit"
+        }
+      },
+      "quantity": {
+        "title": "How much coffee would you like?",
+        "options": {
+          "250g": "250 g",
+          "500g": "500 g",
+          "1kg": "1 kg",
+          "moreThan1kg": "More than 1 kg"
+        }
+      },
+      "cafeBusinessType": {
+        "title": "What type of business do you operate?",
+        "options": {
+          "cafe": "Café",
+          "restaurant": "Restaurant",
+          "hotel": "Hotel",
+          "bakery": "Bakery",
+          "cafeRestaurant": "Café-Restaurant",
+          "other": "Other"
+        }
+      },
+      "serviceType": {
+        "title": "What type of service will the coffee mainly be used for?",
+        "options": {
+          "espresso": "Espresso",
+          "milkBased": "Milk-based drinks",
+          "filter": "Filter coffee",
+          "coldBrew": "Cold brew",
+          "mixed": "Mixed"
+        }
+      },
+      "dailyCoffeeDrinks": {
+        "title": "Approximately how many coffee drinks do you serve per day?",
+        "options": {
+          "lessThan30": "Less than 30",
+          "30To70": "30–70",
+          "70To150": "70–150",
+          "150To300": "150–300",
+          "moreThan300": "More than 300"
+        }
+      },
+      "monthlyCoffeeConsumption": {
+        "title": "Approximately how much coffee do you consume per month?",
+        "options": {
+          "lessThan5kg": "Less than 5 kg",
+          "5To15kg": "5–15 kg",
+          "15To30kg": "15–30 kg",
+          "30To50kg": "30–50 kg",
+          "50To100kg": "50–100 kg",
+          "moreThan100kg": "More than 100 kg"
+        }
+      },
+      "hasEspressoMachine": {
+        "title": "Do you have an espresso machine?",
+        "options": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      },
+      "hasIndustrialGrinder": {
+        "title": "Do you have a commercial grinder?",
+        "options": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      },
+      "customerFlavor": {
+        "title": "Which flavor profile is most suitable for your customers?",
+        "options": {
+          "chocolate": "Chocolate",
+          "caramel": "Caramel",
+          "nutty": "Nutty",
+          "fruity": "Fruity",
+          "floral": "Floral",
+          "spicy": "Spicy",
+          "balanced": "Balanced",
+          "strong": "Strong"
+        }
+      },
+      "priority": {
+        "title": "What is your main priority when choosing coffee?",
+        "options": {
+          "qualityAndFlavor": "Quality and flavor",
+          "price": "Affordable price",
+          "profitMargin": "Profit margin",
+          "highCaffeine": "High caffeine",
+          "moreCrema": "More crema",
+          "consistency": "Consistency"
+        }
+      },
+      "monthlyBudget": {
+        "title": "What is your monthly coffee budget?",
+        "options": {
+          "economy": "Economy",
+          "medium": "Medium",
+          "professional": "Professional",
+          "unlimited": "No limit"
+        }
+      },
+      "needsEquipment": {
+        "title": "Do you need additional equipment?",
+        "options": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      },
+      "equipmentNeeded": {
+        "title": "Which equipment do you need?",
+        "options": {
+          "grinder": "Grinder",
+          "tamper": "Tamper",
+          "scale": "Scale",
+          "pitcher": "Pitcher",
+          "knockBox": "Knock box",
+          "kettle": "Kettle",
+          "other": "Other"
+        }
+      },
+      "numberOfUsers": {
+        "title": "How many people will be drinking the coffee?",
+        "options": {
+          "oneToFive": "1–5 people",
+          "sixToFifteen": "6–15 people",
+          "sixteenToThirty": "16–30 people",
+          "thirtyOneToFifty": "31–50 people",
+          "moreThanFifty": "More than 50 people"
+        }
+      },
+      "officeDailyCups": {
+        "title": "Approximately how many cups are consumed per day?",
+        "options": {
+          "lessThan10": "Less than 10",
+          "10To30": "10–30",
+          "30To50": "30–50",
+          "moreThan50": "More than 50"
+        }
+      },
+      "officeBrewMethod": {
+        "title": "How do you prepare your coffee?",
+        "options": {
+          "espressoMachine": "Espresso machine",
+          "capsule": "Capsules",
+          "mokaPot": "Moka Pot",
+          "instant": "Instant coffee",
+          "filter": "Filter coffee",
+          "none": "We don't have brewing equipment yet"
+        }
+      },
+      "coffeeType": {
+        "title": "What type of coffee do you prefer?",
+        "options": {
+          "arabica": "Arabica",
+          "robusta": "Robusta",
+          "blend": "Blend",
+          "noPreference": "No preference"
+        }
+      },
+      "officeFlavor": {
+        "title": "Which flavor do you prefer?",
+        "options": {
+          "chocolate": "Chocolate",
+          "caramel": "Caramel",
+          "nutty": "Nutty",
+          "fruity": "Fruity",
+          "floral": "Floral",
+          "spicy": "Spicy"
+        }
+      },
+      "monthlyConsumption": {
+        "title": "Approximately how much coffee do you consume per month?",
+        "options": {
+          "lessThan2kg": "Less than 2 kg",
+          "2To5kg": "2–5 kg",
+          "5To10kg": "5–10 kg",
+          "moreThan10kg": "More than 10 kg"
+        }
+      },
+      "officeNeedsEquipment": {
+        "title": "Do you need coffee brewing equipment?",
+        "options": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      },
+      "officeBudget": {
+        "title": "What is your budget?",
+        "options": {
+          "economy": "Economy",
+          "medium": "Medium",
+          "professional": "Professional",
+          "unlimited": "No limit"
+        }
+      },
+      "purchasePurpose": {
+        "title": "What is the purpose of your purchase?",
+        "options": {
+          "resale": "Resale",
+          "cafeSupply": "Café supply",
+          "retailStore": "Retail store",
+          "wholesaleDistribution": "Wholesale distribution",
+          "export": "Export",
+          "industrialUse": "Industrial use"
+        }
+      },
+      "productType": {
+        "title": "What type of product do you need?",
+        "options": {
+          "greenBeans": "Green beans",
+          "roastedCoffee": "Roasted coffee",
+          "groundCoffee": "Ground coffee",
+          "customBlend": "Custom blend"
+        }
+      },
+      "wholesaleCoffeeType": {
+        "title": "What type of coffee are you looking for?",
+        "options": {
+          "arabica": "Arabica",
+          "robusta": "Robusta",
+          "blend": "Blend",
+          "noPreference": "No preference"
+        }
+      },
+      "quality": {
+        "title": "What level of quality are you looking for?",
+        "options": {
+          "economy": "Economy",
+          "commercial": "Commercial",
+          "premium": "Premium",
+          "specialty": "Specialty"
+        }
+      },
+      "orderVolume": {
+        "title": "How much do you purchase per order?",
+        "options": {
+          "10To30kg": "10–30 kg",
+          "30To100kg": "30–100 kg",
+          "100To500kg": "100–500 kg",
+          "500kgTo1Ton": "500 kg–1 ton",
+          "moreThan1Ton": "More than 1 ton"
+        }
+      },
+      "monthlyVolume": {
+        "title": "How much coffee do you purchase per month?",
+        "options": {
+          "lessThan100kg": "Less than 100 kg",
+          "100To500kg": "100–500 kg",
+          "500kgTo1Ton": "500 kg–1 ton",
+          "1To5Ton": "1–5 tons",
+          "moreThan5Ton": "More than 5 tons"
+        }
+      },
+      "wholesaleFlavor": {
+        "title": "What flavor profile are you looking for?",
+        "options": {
+          "chocolate": "Chocolate",
+          "caramel": "Caramel",
+          "nutty": "Nutty",
+          "fruity": "Fruity",
+          "floral": "Floral",
+          "spicy": "Spicy",
+          "balanced": "Balanced",
+          "strong": "Strong"
+        }
+      },
+      "packaging": {
+        "title": "What packaging size do you prefer?",
+        "options": {
+          "250g": "250 g",
+          "500g": "500 g",
+          "1kg": "1 kg",
+          "5kg": "5 kg",
+          "10kg": "10 kg",
+          "bulk": "Bulk"
+        }
+      },
+      "brand": {
+        "title": "Which brand would you like?",
+        "options": {
+          "farajahan": "Farajahan",
+          "ownBrand": "My own brand",
+          "noBrand": "No brand"
+        }
+      },
+      "customPackaging": {
+        "title": "Do you need custom packaging?",
+        "options": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      },
+      "sampleBeforeOrder": {
+        "title": "Would you like a product sample before placing a wholesale order?",
+        "options": {
+          "yes": "Yes",
+          "no": "No"
+        }
+      },
+      "wholesaleBudget": {
+        "title": "What is your approximate budget per order?",
+        "options": {
+          "economy": "Economy",
+          "medium": "Medium",
+          "professional": "Professional",
+          "unlimited": "No limit"
+        }
+      }
+    },
+    "resultLabel": "Your Coffee Profile",
+    "resultTitle": "Your selections are ready",
+    "resultDescription": "Your answers have been saved successfully. In the next step, we will prepare a recommendation based on your preferences.",
+    "answersPreview": "Saved answers",
+    "backToQuestions": "Back to Questions",
+    "continueToRecommendation": "Continue to Recommendation"
+  },
+  "bestSellingProducts": {
+    "eyebrow": "BEST SELLING",
+    "title": "Best-Selling Products",
+    "description": "Our customers' favorite products from Farajahan.",
+    "viewAll": "View All Products",
+    "noImage": "No Image",
+    "viewProduct": "View Product",
+    "addToCart": "Add to Cart",
+    "adding": "Adding...",
+    "added": "Added to Cart",
+    "previous": "Previous Product",
+    "next": "Next Product"
+  }
+}
