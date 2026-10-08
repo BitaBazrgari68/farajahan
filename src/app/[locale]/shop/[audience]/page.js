@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
-
+import ProductCard from "@/components/shop/ProductCard";
 import {
   getProductCategories,
   getProductCategoryBySlug,
@@ -197,67 +197,17 @@ export default async function AudiencePage({ params }) {
                 </h2>
               </div>
 
+              
               {/* کارت محصولات */}
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
 
                 {group.products.map((product) => (
-                  <Link
+                  <ProductCard
                     key={product.id}
-                    href={`/${locale}/product/${product.slug}`}
-                    className="group overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                  >
-
-                    {/* تصویر */}
-                    <div className="relative aspect-square overflow-hidden bg-cream">
-
-                      {product.image && (
-                        <Image
-                          src={product.image.src}
-                          alt={
-                            product.image.alt ||
-                            product.name
-                          }
-                          fill
-                          unoptimized
-                          className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
-                          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                        />
-                      )}
-
-                    </div>
-
-                    {/* اطلاعات محصول */}
-                    <div className="p-4">
-
-                      <h3 className="line-clamp-2 min-h-[3rem] font-sans text-sm font-semibold text-coffee-dark">
-                        {product.name}
-                      </h3>
-
-                      {product.weight && (
-                        <p className="mt-2 text-xs text-text-muted">
-                          {product.weight}
-                        </p>
-                      )}
-
-                      <div className="mt-4">
-                        <span className="font-sans text-sm font-bold text-coffee-dark">
-                          {product.price.value.toLocaleString(
-                            locale === 'fa'
-                              ? 'fa-IR'
-                              : 'en-US'
-                          )}
-                        </span>
-
-                        <span className="mr-1 text-xs text-text-muted">
-                          {shopT(
-                            'product.currency'
-                          )}
-                        </span>
-                      </div>
-
-                    </div>
-
-                  </Link>
+                    product={product}
+                    locale={locale}
+                    currency={shopT('product.currency')}
+                  />
                 ))}
 
               </div>

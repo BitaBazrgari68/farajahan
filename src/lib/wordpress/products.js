@@ -19,7 +19,7 @@ export async function getProducts({
   return wordpressFetch(
     `wc/store/v1/products?${params.toString()}`,
     {
-      cache: 'no-store',
+      next: { revalidate: 60 },
     }
   );
 }
@@ -38,7 +38,7 @@ export async function getBestSellingProducts({
   return wordpressFetch(
     `wc/store/v1/products?${params.toString()}`,
     {
-      cache: 'no-store',
+      next: { revalidate: 60 },
     }
   );
 }

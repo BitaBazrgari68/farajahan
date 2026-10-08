@@ -10,10 +10,16 @@
     "subtitle": "بهترین قهوه‌های جهان در خانه شما"
   },
   "header": {
+    "home": "خانه",
     "shop": "فروشگاه",
-    "specialtyCoffee": "قهوه تخصصی",
-    "instantCoffee": "قهوه فوری",
-    "blog": "وبلاگ",
+    "coffeeBeans": "دانه قهوه",
+    "powderProducts": "محصولات پودری",
+    "products250g": "محصولات ۲۵۰ گرمی",
+    "fruitDrink": "نوشیدنی میوه‌ای",
+    "farajahanServices": "خدمات فراجهان",
+    "eventSponsorship": "درخواست اسپانسرینگ رویدادها",
+    "agencyRequest": "درخواست نمایندگی",
+    "faq": "سؤالات متداول",
     "about": "درباره ما",
     "contact": "تماس با ما",
     "search": "جستجو",
@@ -617,5 +623,27 @@
     "added": "به سبد اضافه شد",
     "previous": "محصول قبلی",
     "next": "محصول بعدی"
+  },
+  "cart": {
+    "title": "سبد خرید",
+    "empty": "سبد خرید شما خالی است.",
+    "itemsCount": "{count} کالا",
+    "clearCart": "خالی کردن سبد",
+    "remove": "حذف",
+    "increase": "افزایش تعداد",
+    "decrease": "کاهش تعداد",
+    "variation": "تنوع",
+    "noImage": "بدون تصویر",
+    "summary": "خلاصه سفارش",
+    "subtotal": "جمع محصولات",
+    "total": "مبلغ قابل پرداخت",
+    "currency": "تومان",
+    "checkout": "ادامه فرایند پرداخت",
+    "continueShopping": "ادامه خرید",
+    "syncing": "در حال بررسی قیمت و موجودی…",
+    "syncError": "بررسی سبد انجام نشد. دوباره تلاش کنید",
+    "issueQuantityAdjusted": "تعداد «{name}» از {requested} به {actual} تغییر کرد.",
+    "issueOutOfStock": "«{name}» موجود نیست و از سبد حذف شد.",
+    "issueUnavailable": "«{name}» در دسترس نیست و از سبد حذف شد."
   }
 }

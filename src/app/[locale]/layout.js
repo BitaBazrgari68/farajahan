@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import '../globals.css';
 import Header from '@/components/Header';
+import CartProvider from '@/components/providers/CartProvider';
 
 export function generateStaticParams() {
   return [
@@ -30,8 +31,10 @@ export default async function RootLayout({ children, params }) {
           locale={locale}
           messages={messages}
         >
-          <Header />
-          {children}
+          <CartProvider>
+            <Header />
+            {children}
+          </CartProvider>
         </NextIntlClientProvider>
       </body>
     </html>

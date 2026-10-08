@@ -10,10 +10,16 @@
     "subtitle": "Best coffee in the world"
   },
   "header": {
+    "home": "Home",
     "shop": "Shop",
-    "specialtyCoffee": "Specialty Coffee",
-    "instantCoffee": "Instant Coffee",
-    "blog": "Blog",
+    "coffeeBeans": "Coffee Beans",
+    "powderProducts": "Powdered Products",
+    "products250g": "250g Products",
+    "fruitDrink": "Fruit Drink",
+    "farajahanServices": "Farajahan Services",
+    "eventSponsorship": "Event Sponsorship Request",
+    "agencyRequest": "Agency Request",
+    "faq": "FAQ",
     "about": "About Us",
     "contact": "Contact Us",
     "search": "Search",
@@ -617,5 +623,27 @@
     "added": "Added to Cart",
     "previous": "Previous Product",
     "next": "Next Product"
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty.",
+    "itemsCount": "{count} items",
+    "clearCart": "Clear cart",
+    "remove": "Remove",
+    "increase": "Increase quantity",
+    "decrease": "Decrease quantity",
+    "variation": "Variation",
+    "noImage": "No image",
+    "summary": "Order Summary",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "currency": "Toman",
+    "checkout": "Proceed to Checkout",
+    "continueShopping": "Continue Shopping",
+    "syncing": "Checking price and availability…",
+    "syncError": "Cart check failed. Please try again.",
+    "issueQuantityAdjusted": "The quantity of \"{name}\" was changed from {requested} to {actual}.",
+    "issueOutOfStock": "\"{name}\" is out of stock and was removed from your cart.",
+    "issueUnavailable": "\"{name}\" is unavailable and was removed from your cart."
   }
 }
