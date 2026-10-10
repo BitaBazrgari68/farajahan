@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { useTranslations } from "next-intl";
 import { useCartSync } from "@/hooks/useCartSync";
+import { usePaidOrderCleanup } from "@/hooks/usePaidOrderCleanup";
 export default function CartPage({ params }) {
 
 
@@ -31,6 +32,8 @@ export default function CartPage({ params }) {
     );
 
     const { cart, isSyncing, error, retry } = useCartSync();
+    const { isChecking: isCheckingOrder, clearedOrderId } =
+        usePaidOrderCleanup();
     const issues = cart?.issues ?? [];
 
     const issueText = (issue) => {
@@ -83,7 +86,8 @@ export default function CartPage({ params }) {
     // تا رسیدن اولین پاسخ Woo، تخمین Zustand نمایش داده می‌شود
     const displaySubtotal = totals ? fromMinor(totals.subtotal) : subtotal;
     const displayTotal = totals ? fromMinor(totals.total) : subtotal;
-    const canCheckout = Boolean(totals) && !isSyncing && !error;
+    const canCheckout =
+        Boolean(totals) && !isSyncing && !error && !isCheckingOrder;
 
     const formatPrice = (price) =>
         price.toLocaleString(
@@ -103,6 +107,21 @@ export default function CartPage({ params }) {
             <main className="min-h-screen bg-background py-10 sm:py-14 lg:py-20">
                 <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                     {issuesBlock}
+
+                    {clearedOrderId && (
+                        <div
+                            role="status"
+                            className="mb-6 rounded-2xl border border-green-200 bg-green-50 p-4 text-sm leading-7 text-green-900"
+                        >
+                            {locale === "fa"
+                                ? `سفارش شماره‌ی ${Number(
+                                    clearedOrderId
+                                ).toLocaleString("fa-IR", {
+                                    useGrouping: false,
+                                })} پرداخت شده بود و سبد خرید پاک شد.`
+                                : `Order #${clearedOrderId} was already paid, so your cart was cleared.`}
+                        </div>
+                    )}
                     <div className="rounded-3xl bg-white px-5 py-12 text-center shadow-sm ring-1 ring-black/5 sm:px-10 sm:py-16">
                         {/* آیکون سبد */}
                         <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-cream text-coffee-dark">

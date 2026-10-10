@@ -7,8 +7,11 @@ import {
 import { IRAN_PROVINCE_CODES } from "@/data/iranProvinces";
 
 import { orderSignature } from "@/lib/orderSignature";
-import { setLastOrderCookie } from "@/lib/lastOrderCookie";
-
+import {
+    setLastOrderCookie,
+    readPaidGuardCookie,
+    clearPaidGuardCookie,
+} from "@/lib/lastOrderCookie";
 const PAYMENT_METHOD = "WC_ZPal";
 
 const GUEST_EMAIL_DOMAIN =
@@ -127,6 +130,29 @@ export async function POST(request) {
             );
         }
 
+        // محافظ پرداخت تکراری: همین اقلام قبلاً پرداخت شده و مشتری هنوز تأیید نکرده
+        const currentSignature = orderSignature(
+            wooItems.map((i) => ({
+                productId: i.id,
+                quantity: i.quantity,
+            }))
+        );
+
+        const paidGuard = readPaidGuardCookie(request);
+
+        if (
+            paidGuard &&
+            paidGuard.signature === currentSignature &&
+            body?.confirmRepeat !== true
+        ) {
+            return jsonWithCart(
+                { error: "already_paid", orderId: paidGuard.orderId },
+                { status: 409, cartToken }
+            );
+        }
+
+        
+
         const result = await wcStoreFetch("/checkout", {
             method: "POST",
             body: {
@@ -199,7 +225,7 @@ export async function POST(request) {
                 ),
             });
         }
-
+        clearPaidGuardCookie(response);
         return response;
     } catch (error) {
         console.error("Checkout route error:", error);

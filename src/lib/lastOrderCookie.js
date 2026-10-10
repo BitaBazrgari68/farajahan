@@ -52,3 +52,46 @@ export function clearLastOrderCookie(response) {
         maxAge: 0,
     });
 }
+
+// کوکی محافظ پرداخت تکراری: بعد از حکم «پرداخت‌شده» می‌ماند (۶ ساعت)،
+// فقط برای پرسش پیش از ثبت دوباره‌ی همان اقلام
+export const PAID_GUARD_COOKIE = "wc_paid_guard";
+
+const GUARD_MAX_AGE = 60 * 60 * 6;
+
+export function setPaidGuardCookie(response, { orderId, signature }) {
+    response.cookies.set(
+        PAID_GUARD_COOKIE,
+        JSON.stringify({ orderId, signature }),
+        { ...baseOptions(), maxAge: GUARD_MAX_AGE }
+    );
+}
+
+export function readPaidGuardCookie(request) {
+    const raw = request.cookies.get(PAID_GUARD_COOKIE)?.value;
+
+    if (!raw) return null;
+
+    try {
+        const data = JSON.parse(raw);
+
+        if (
+            !Number.isInteger(data?.orderId) ||
+            typeof data?.signature !== "string" ||
+            !data.signature
+        ) {
+            return null;
+        }
+
+        return data;
+    } catch {
+        return null;
+    }
+}
+
+export function clearPaidGuardCookie(response) {
+    response.cookies.set(PAID_GUARD_COOKIE, "", {
+        ...baseOptions(),
+        maxAge: 0,
+    });
+}

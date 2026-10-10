@@ -4,7 +4,7 @@ import { use, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { orderSignature } from "@/lib/orderSignature";
-
+import { clearCheckoutForm } from "@/lib/checkoutFormStorage";
 const MAX_ATTEMPTS = 5;
 const DELAY_MS = 4000;
 const VERDICT_KEY = "wc_order_verdict";
@@ -115,6 +115,7 @@ export default function OrderResultPage({ params, searchParams }) {
                     // سبد فقط وقتی پاک می‌شود که امضایش با امضای همان سفارش یکی باشد
                     if (data.cartMatchesOrder) {
                         useCartStore.getState().setItems([]);
+                        clearCheckoutForm();
                     }
 
                     setOrderNumber(sameOrder ? orderId : urlOrder);

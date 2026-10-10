@@ -5,7 +5,12 @@ import { useCartStore } from "@/store/cartStore";
 import { useCartSync } from "@/hooks/useCartSync";
 import { IRAN_PROVINCES } from "@/data/iranProvinces";
 import { use, useEffect, useState, useRef } from "react";
-
+import { usePaidOrderCleanup } from "@/hooks/usePaidOrderCleanup";
+import {
+    loadCheckoutForm,
+    saveCheckoutForm,
+    clearCheckoutForm,
+} from "@/lib/checkoutFormStorage";
 const toLatinDigits = (value) =>
     String(value ?? "")
         .replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
@@ -16,7 +21,11 @@ export default function CheckoutPage({ params }) {
 
     const items = useCartStore((state) => state.items);
     const { cart, isSyncing, error, retry } = useCartSync();
-
+    const {
+        isChecking: isCheckingOrder,
+        clearedOrderId,
+        checkFailed,
+    } = usePaidOrderCleanup();
     const totals = cart?.totals;
     const fromMinor = (value) => value / 10 ** (totals?.minorUnit ?? 0);
 
@@ -98,6 +107,32 @@ export default function CheckoutPage({ params }) {
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState("");
+    const [repeatPrompt, setRepeatPrompt] = useState(null);
+    const confirmRepeatRef = useRef(false);
+
+    const [formReady, setFormReady] = useState(false);
+    const restoredRef = useRef(false);
+
+    // بازیابی فرم بعد از mount (نه در state اولیه، تا با رندر سرور ناسازگار نشود)
+    useEffect(() => {
+        if (restoredRef.current) return;
+        restoredRef.current = true;
+
+        const saved = loadCheckoutForm();
+
+        if (saved) {
+            setForm((current) => ({ ...current, ...saved }));
+        }
+
+        setFormReady(true);
+    }, []);
+
+    // ذخیره فقط بعد از پایان بازیابی، تا فرم خالی اولیه داده‌ی ذخیره‌شده را پاک نکند
+    useEffect(() => {
+        if (!formReady) return;
+
+        saveCheckoutForm(form);
+    }, [form, formReady]);
     const submittingRef = useRef(false);
 
     // بازگشت با دکمه‌ی برگشت مرورگر: قفل «در حال ثبت» را باز کن
@@ -125,13 +160,7 @@ export default function CheckoutPage({ params }) {
     );
     const displaySubtotal = totals ? fromMinor(totals.subtotal) : subtotal;
     const displayTotal = totals ? fromMinor(totals.total) : subtotal;
-    const canSubmit =
-        Boolean(totals) &&
-        !isSyncing &&
-        !error &&
-        !isSelectingRate &&
-        !isSubmitting &&
-        Boolean(selectedRate);
+    const canSubmit = Boolean(totals) && !isSyncing && !error && !isSelectingRate && !isCheckingOrder && Boolean(selectedRate);
 
     const isRTL = locale === "fa" || locale === "ar";
 
@@ -277,13 +306,15 @@ export default function CheckoutPage({ params }) {
         submittingRef.current = true;
         setIsSubmitting(true);
         setSubmitError("");
-
+        const confirmRepeat = confirmRepeatRef.current;
+        confirmRepeatRef.current = false;
         try {
             const response = await fetch("/api/woocommerce/checkout", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     ...form,
+                    confirmRepeat,
                     items: items.map((i) => ({
                         productId: i.productId,
                         variationId: i.variationId || 0,
@@ -311,17 +342,9 @@ export default function CheckoutPage({ params }) {
                 return;
             }
 
-            if (data.error === "cart_changed") {
-                setSubmitError(
-                    locale === "fa"
-                        ? "سبد خرید تغییر کرده بود و دوباره بررسی شد. مبلغ را ببینید و دوباره ثبت کنید."
-                        : "Your cart had changed and was rechecked. Review the total and place your order again."
-                );
-                retry();
-            } else if (
-                data.error === "invalid_fields" &&
-                Array.isArray(data.fields)
-            ) {
+            if (data.error === "already_paid") {
+                setRepeatPrompt({ orderId: data.orderId });
+            } else if (data.error === "cart_changed") {
                 setErrors(
                     Object.fromEntries(
                         data.fields.map((f) => [
@@ -351,13 +374,37 @@ export default function CheckoutPage({ params }) {
         submittingRef.current = false;
         setIsSubmitting(false);
     };
+    const handleConfirmRepeat = () => {
+        confirmRepeatRef.current = true;
+        setRepeatPrompt(null);
+        handleSubmit({ preventDefault() { } });
+    };
 
+    const handleClearCart = () => {
+        setRepeatPrompt(null);
+        useCartStore.getState().setItems([]);
+        clearCheckoutForm();
+    };
     if (items.length === 0) {
         return (
             <main
                 dir={isRTL ? "rtl" : "ltr"}
                 className="min-h-screen bg-[#f7f4ee] px-4 py-16"
             >
+                {clearedOrderId && (
+                    <div
+                        role="status"
+                        className="mx-auto mb-6 max-w-2xl rounded-2xl border border-green-200 bg-green-50 p-4 text-center text-sm leading-7 text-green-900"
+                    >
+                        {locale === "fa"
+                            ? `سفارش شماره‌ی ${Number(
+                                clearedOrderId
+                            ).toLocaleString("fa-IR", {
+                                useGrouping: false,
+                            })} پرداخت شده بود و سبد خرید پاک شد.`
+                            : `Order #${clearedOrderId} was already paid, so your cart was cleared.`}
+                    </div>
+                )}
                 <div className="mx-auto flex max-w-2xl flex-col items-center justify-center rounded-3xl bg-white px-6 py-16 text-center shadow-sm ring-1 ring-black/5">
                     <h1 className="text-2xl font-bold text-coffee-dark">
                         {locale === "fa"
@@ -875,6 +922,55 @@ export default function CheckoutPage({ params }) {
                                     ? "بررسی سبد انجام نشد. دوباره تلاش کنید"
                                     : "Couldn't check your cart. Try again"}
                             </button>
+                        )}
+                        {repeatPrompt && (
+                            <div
+                                role="alertdialog"
+                                className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4 text-xs leading-6 text-amber-900"
+                            >
+                                <p>
+                                    {locale === "fa"
+                                        ? `سفارشی با همین اقلام (شماره‌ی ${Number(
+                                            repeatPrompt.orderId
+                                        ).toLocaleString("fa-IR", {
+                                            useGrouping: false,
+                                        })}) قبلاً پرداخت شده است. می‌خواهید دوباره سفارش دهید؟`
+                                        : `An order with the same items (#${repeatPrompt.orderId}) was already paid. Do you want to order again?`}
+                                </p>
+
+                                <div className="mt-3 flex flex-wrap gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={handleConfirmRepeat}
+                                        className="rounded-xl bg-coffee-dark px-4 py-2 text-xs font-bold text-white transition hover:bg-coffee"
+                                    >
+                                        {locale === "fa"
+                                            ? "ادامه و ثبت دوباره"
+                                            : "Continue and place again"}
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleClearCart}
+                                        className="rounded-xl border border-black/10 px-4 py-2 text-xs font-semibold text-coffee-dark transition hover:bg-cream"
+                                    >
+                                        {locale === "fa"
+                                            ? "پاک‌کردن سبد"
+                                            : "Clear cart"}
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {checkFailed && (
+                            <p
+                                role="status"
+                                className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-6 text-amber-900"
+                            >
+                                {locale === "fa"
+                                    ? "وضعیت سفارش قبلی شما بررسی نشد. اگر قبلاً همین سفارش را پرداخت کرده‌اید، دوباره ثبت نکنید."
+                                    : "We couldn't check your previous order. If you already paid for it, please don't place it again."}
+                            </p>
                         )}
                         {submitError && (
                             <p

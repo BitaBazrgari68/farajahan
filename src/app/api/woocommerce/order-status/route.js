@@ -3,8 +3,8 @@ import { wcStoreFetch } from "@/lib/woocommerce";
 import {
     readLastOrderCookie,
     clearLastOrderCookie,
+    setPaidGuardCookie,
 } from "@/lib/lastOrderCookie";
-
 const PAID_STATUSES = new Set(["processing", "completed"]);
 const FAILED_STATUSES = new Set(["failed", "cancelled"]);
 
@@ -45,6 +45,7 @@ function respond(body, { status = 200, clearCookie = false } = {}) {
 }
 
 export async function POST(request) {
+      
     try {
         const saved = readLastOrderCookie(request);
 
@@ -99,7 +100,7 @@ export async function POST(request) {
             });
         }
 
-        
+
         const status = String(result.data?.status ?? "");
         if (status === "trash") {
             return respond({ state: "none" }, { clearCookie: true });
@@ -109,10 +110,18 @@ export async function POST(request) {
 
         // پرداخت‌شده: کوکی پاک می‌شود، چه سبد یکی باشد چه فرق داشته باشد
         if (PAID_STATUSES.has(status)) {
-            return respond(
+            const response = respond(
                 { state: "paid", orderId: saved.orderId, cartMatchesOrder },
                 { clearCookie: true }
             );
+
+            // هر دو کوکی روی همین یک پاسخ؛ امضا، امضای خود سفارش است نه سبد مرورگر
+            setPaidGuardCookie(response, {
+                orderId: saved.orderId,
+                signature: saved.signature,
+            });
+
+            return response;
         }
 
         // ناموفق یا لغو: کوکی و سبد می‌مانند
