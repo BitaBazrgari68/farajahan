@@ -2,7 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import '../globals.css';
 import Header from '@/components/Header';
 import CartProvider from '@/components/providers/CartProvider';
-
+import { setRequestLocale } from 'next-intl/server';
 export function generateStaticParams() {
   return [
     { locale: 'fa' },
@@ -16,7 +16,7 @@ export const metadata = {
 
 export default async function RootLayout({ children, params }) {
   const { locale } = await params;
-
+setRequestLocale(locale);
   const messages = (
     await import(`../../messages/${locale}.json`)
   ).default;
@@ -25,6 +25,7 @@ export default async function RootLayout({ children, params }) {
     <html
       lang={locale}
       dir={locale === 'fa' || locale === 'ar' ? 'rtl' : 'ltr'}
+      data-scroll-behavior="smooth"
     >
       <body>
         <NextIntlClientProvider

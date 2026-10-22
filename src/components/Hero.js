@@ -455,7 +455,7 @@ ${isRTL ? 'text-right' : 'text-left'}
                 }}
               >
                 <Link
-                  href={`/${locale}/products`}
+                  href={`/${locale}/shop`}
                   className="
                     inline-flex
                     min-h-[52px]
@@ -488,8 +488,8 @@ ${isRTL ? 'text-right' : 'text-left'}
                       leading-none
                     "
                   >
-                    
-                   {isRTL ? '←' : '→'}
+
+                    {isRTL ? '←' : '→'}
                   </span>
                 </Link>
               </motion.div>
@@ -671,80 +671,38 @@ ${isRTL ? 'text-right' : 'text-left'}
                   CENTER COFFEE IMAGE
               ================================================== */}
 
+
+              {/* CENTER ASTRONAUT IMAGE */}
+
               <motion.div
                 variants={centerVariants}
                 initial="hidden"
                 animate="visible"
                 className="
-                  absolute
-
-                  left-1/2
-                  top-1/2
-
-                  z-20
-
-                  w-[58%]
-
-                  -translate-x-1/2
-                  -translate-y-1/2
-                "
+    absolute
+    left-1/2
+    top-1/2
+    z-20
+    w-[36%]
+    -translate-x-1/2
+    -translate-y-1/2
+  "
               >
-                <div
-                  className="
-                    relative
-                    aspect-square
-                    w-full
-                  "
-                >
+                <div className="relative aspect-square w-full">
                   <Image
-                    src="/images/hero/coffee-center.webp"
-                    alt="فنجان قهوه فراجهان"
+                    src="/images/hero/farajahan2.png"
+                    alt="فضانورد فراجهان روی کره ماه"
                     fill
                     priority
-                    sizes="(min-width: 1536px) 430px, (min-width: 1280px) 390px, (min-width: 1024px) 350px, 70vw"
+                    sizes="(min-width: 1280px) 294px, (min-width: 1024px) 260px, 42vw"
                     className="
-                      object-contain
-
-                      drop-shadow-[0_25px_35px_rgba(65,39,22,0.20)]
-                    "
+        object-contain
+        drop-shadow-[0_20px_28px_rgba(65,39,22,0.18)]
+      "
                   />
-
                 </div>
-                {/* <div
-                  className="
-    relative
-    aspect-square
-    w-full
-    overflow-visible
-  "
-                >
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    
-                    className="
-      h-full
-      w-full
-      object-contain
-      drop-shadow-[0_25px_35px_rgba(65,39,22,0.20)]
-    "
-                    aria-label="فنجان قهوه با بخار متحرک"
-                  >
-                    <source
-                      src="/videos/hero/coffee-center.webm"
-                      type="video/webm"
-                    />
-
-                    <source
-                      src="/images/videos/hero/coffee-center.mp4"
-                      type="video/mp4"
-                    />
-                  </video>
-                </div> */}
               </motion.div>
+
 
               {/* =================================================
                   JOURNEY ITEMS

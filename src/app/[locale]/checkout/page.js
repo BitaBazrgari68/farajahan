@@ -18,7 +18,7 @@ const toLatinDigits = (value) =>
 
 export default function CheckoutPage({ params }) {
     const { locale } = use(params);
-
+    const lang = locale === "en" ? "en" : "fa";
     const items = useCartStore((state) => state.items);
     const { cart, isSyncing, error, retry } = useCartSync();
     const {
@@ -76,6 +76,8 @@ export default function CheckoutPage({ params }) {
                 body: JSON.stringify({
                     packageId: shippingPackage.packageId,
                     rateId,
+                    lang,
+
                 }),
             });
 
@@ -315,6 +317,7 @@ export default function CheckoutPage({ params }) {
                 body: JSON.stringify({
                     ...form,
                     confirmRepeat,
+                    lang,
                     items: items.map((i) => ({
                         productId: i.productId,
                         variationId: i.variationId || 0,
@@ -344,7 +347,10 @@ export default function CheckoutPage({ params }) {
 
             if (data.error === "already_paid") {
                 setRepeatPrompt({ orderId: data.orderId });
-            } else if (data.error === "cart_changed") {
+            } else if (
+                data.error === "invalid_fields" &&
+                Array.isArray(data.fields)
+            ) {
                 setErrors(
                     Object.fromEntries(
                         data.fields.map((f) => [
@@ -355,6 +361,13 @@ export default function CheckoutPage({ params }) {
                         ])
                     )
                 );
+            } else if (data.error === "cart_changed") {
+                setSubmitError(
+                    locale === "fa"
+                        ? "سبد خرید شما تغییر کرده است. چند لحظه صبر کنید و دوباره تلاش کنید."
+                        : "Your cart has changed. Please wait a moment and try again."
+                );
+                retry();
             } else {
                 setSubmitError(
                     locale === "fa"

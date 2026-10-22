@@ -12,7 +12,7 @@ export function getCartToken(request) {
 
 export async function wcStoreFetch(
     path,
-    { method = "GET", body, cartToken } = {}
+    { method = "GET", body, cartToken, lang } = {}
 ) {
     const headers = {
         "Content-Type": "application/json",
@@ -27,9 +27,16 @@ export async function wcStoreFetch(
         `${WOOCOMMERCE_URL}/wp-json/wc/store/v1${path}`
     );
 
+    // زبان صفحه‌ی کاربر؛ بدون آن، وردپرس هر کالا را به نسخه‌ی فارسی تبدیل می‌کند
+    if (lang) {
+        url.searchParams.set("lang", lang);
+    }
+
     if (method === "GET") {
         url.searchParams.set("_", Date.now().toString());
     }
+
+  
 
     const response = await fetch(url.toString(), {
         method,
@@ -39,6 +46,8 @@ export async function wcStoreFetch(
     });
 
     const data = await response.json().catch(() => null);
+
+
     return {
         ok: response.ok,
         status: response.status,

@@ -12,6 +12,11 @@ const nextConfig = {
       },
     ],
   },
+  staticPageGenerationTimeout: 180,
+  experimental: {
+    cpus: 1,
+    staticGenerationMaxConcurrency: 2,
+  },
 };
 
 export default withNextIntl(nextConfig);

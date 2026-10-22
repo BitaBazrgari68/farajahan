@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useLocale } from "next-intl";
 import { useCartStore } from "@/store/cartStore";
 
 const DEBOUNCE_MS = 800;
@@ -17,6 +18,8 @@ const signatureOf = (items) =>
         .join("|");
 
 export function useCartSync() {
+    const locale = useLocale();
+
     const items = useCartStore((state) => state.items);
     const setItems = useCartStore((state) => state.setItems);
 
@@ -63,6 +66,7 @@ export function useCartSync() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
+                    lang: locale,
                     items: current.map((i) => ({
                         productId: i.productId,
                         variationId: i.variationId || 0,
@@ -139,7 +143,7 @@ export function useCartSync() {
             }
             setIsSyncing(false);
         }
-    }, [setItems]);
+    }, [setItems, locale]);
 
     useEffect(() => {
         if (!hydrated) return;

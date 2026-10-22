@@ -53,7 +53,7 @@ function normalizeItems(items) {
 export async function POST(request) {
     try {
         const body = await request.json();
-
+        const lang = body?.lang === "en" ? "en" : "fa";
         const desired = normalizeItems(body?.items);
 
         if (!desired) {
@@ -107,7 +107,7 @@ export async function POST(request) {
         let cartToken = getCartToken(request);
 
         // سبد واقعی Woo باید دقیقاً همان چیزی باشد که کاربر دیده
-        const current = await wcStoreFetch("/cart", { cartToken });
+        const current = await wcStoreFetch("/cart", { cartToken, lang });
         cartToken = current.cartToken;
 
         if (!current.ok) {
@@ -151,7 +151,7 @@ export async function POST(request) {
             );
         }
 
-        
+
 
         const result = await wcStoreFetch("/checkout", {
             method: "POST",
@@ -182,6 +182,7 @@ export async function POST(request) {
                 customer_note: "",
             },
             cartToken,
+            lang,
         });
 
         cartToken = result.cartToken;

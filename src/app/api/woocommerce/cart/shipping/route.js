@@ -9,7 +9,8 @@ const num = (value) => Number(value) || 0;
 
 export async function POST(request) {
     try {
-        const { packageId, rateId } = await request.json();
+        const { packageId, rateId, lang: rawLang } = await request.json();
+        const lang = rawLang === "en" ? "en" : "fa";
 
         const pkg = Number(packageId);
 
@@ -29,6 +30,7 @@ export async function POST(request) {
             method: "POST",
             body: { package_id: pkg, rate_id: rateId },
             cartToken: getCartToken(request),
+            lang,
         });
 
         if (!result.ok) {

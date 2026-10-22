@@ -2,27 +2,20 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
-export default function MobileMenu() {
+export default function MobileMenu({ items = [] }) {
   const [isOpen, setIsOpen] = useState(false);
-  const params = useParams();
-  const currentLocale = params?.locale || 'fa';
 
-  const menuItems = [
-    { label: currentLocale === 'fa' ? 'فروشگاه' : 'Shop', href: '#' },
-    { label: currentLocale === 'fa' ? 'قهوه تخصصی' : 'Specialty Coffee', href: '#' },
-    { label: currentLocale === 'fa' ? 'قهوه فوری' : 'Instant Coffee', href: '#' },
-    { label: currentLocale === 'fa' ? 'وبلاگ' : 'Blog', href: '#' },
-    { label: currentLocale === 'fa' ? 'درباره ما' : 'About Us', href: '#' },
-    { label: currentLocale === 'fa' ? 'تماس باما' : 'Contact', href: '#' },
-  ];
+  const close = () => setIsOpen(false);
 
   return (
     <>
       {/* Hamburger Button */}
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        aria-label="Menu"
         className="md:hidden flex flex-col gap-1.5 focus:outline-none"
       >
         <span
@@ -45,16 +38,32 @@ export default function MobileMenu() {
       {/* Mobile Menu Panel */}
       {isOpen && (
         <div className="absolute top-full left-0 right-0 bg-white shadow-lg md:hidden">
-          <nav className="flex flex-col p-4 gap-2">
-            {menuItems.map((item, idx) => (
-              <Link
-                key={idx}
-                href={item.href}
-                className="text-slate-700 hover:text-amber-600 py-2 px-3 transition"
-                onClick={() => setIsOpen(false)}
-              >
-                {item.label}
-              </Link>
+          <nav className="flex flex-col p-4 gap-1">
+            {items.map((item) => (
+              <div key={item.href}>
+                <Link
+                  href={item.href}
+                  onClick={close}
+                  className="block py-2 px-3 font-medium text-coffee-dark hover:text-gold transition"
+                >
+                  {item.label}
+                </Link>
+
+                {item.submenu && (
+                  <div className="ms-4 border-s border-cream">
+                    {item.submenu.map((subItem) => (
+                      <Link
+                        key={subItem.href}
+                        href={subItem.href}
+                        onClick={close}
+                        className="block py-2 px-3 text-sm text-coffee-dark/80 hover:text-gold transition"
+                      >
+                        {subItem.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </nav>
         </div>

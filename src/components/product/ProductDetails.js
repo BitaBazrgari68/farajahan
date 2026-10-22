@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
-
+import { isPhoneOrder } from "@/lib/phoneOrder";
 const PHONE_NUMBER = "02191096656";
 
 export default function ProductDetails({ product, locale = "fa" }) {
@@ -30,9 +30,7 @@ export default function ProductDetails({ product, locale = "fa" }) {
   const displayPrice = product.price.value;
   const needsSelection = hasVariationOptions && !selectedVariation;
 
-  const isPhoneOrderProduct = product.categories?.some(
-    (category) => category.slug === "abmive"
-  );
+  const isPhoneOrderProduct = isPhoneOrder(product);
 
   const isAvailable =
     product.stock.available && product.stock.purchasable;

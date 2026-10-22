@@ -9,7 +9,9 @@ export const useCartStore = create(
     persist(
         (set) => ({
             items: [],
-
+            // زبانی که سبد در آن ساخته شده؛ برای سبدهای قدیمی و سبد خالی null است
+            cartLocale: null,
+            setCartLocale: (cartLocale) => set({ cartLocale }),
             addItem: (product) =>
                 set((state) => {
                     const newItem = {
@@ -30,11 +32,11 @@ export const useCartStore = create(
                                     newItem.variationId
                                 )
                                     ? {
-                                          ...item,
-                                          quantity:
-                                              item.quantity +
-                                              newItem.quantity,
-                                      }
+                                        ...item,
+                                        quantity:
+                                            item.quantity +
+                                            newItem.quantity,
+                                    }
                                     : item
                             ),
                         };

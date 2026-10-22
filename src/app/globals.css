@@ -77,3 +77,20 @@ body {
 }
 
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+.contact-stars {
+  background-image:
+    radial-gradient(circle at center, rgba(239, 208, 157, 0.55) 0, transparent 1.6px),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.35) 0, transparent 1.2px),
+    radial-gradient(circle at center, rgba(197, 147, 76, 0.45) 0, transparent 2px);
+  background-size: 173px 173px, 241px 241px, 331px 331px;
+  background-position: 12px 40px, 90px 130px, 200px 20px;
+}

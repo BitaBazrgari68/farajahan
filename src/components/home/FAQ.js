@@ -54,7 +54,7 @@ export default async function FAQ({ locale }) {
     <section
       id="faq"
       dir={isRTL ? 'rtl' : 'ltr'}
-      className="bg-[#F5F1EE] bg-[url('/images/home/bg-faq.webp')] bg-contain bg-top bg-no-repeat py-20"
+      className="scroll-mt-20 bg-[#F5F1EE] bg-[url('/images/home/bg-faq.webp')] bg-contain bg-top bg-no-repeat py-20"
       aria-labelledby="faq-heading"
     >
       <div className="mx-auto max-w-5xl px-6">

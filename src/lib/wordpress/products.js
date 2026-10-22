@@ -48,76 +48,29 @@ export async function getBestSellingProducts({
 
 
 export async function getProductBySlug(slug, locale = 'fa') {
-  if (!slug) {
-    return null;
-  }
+  if (!slug) return null;
 
-  const normalizeSlug = (value = '') => {
-    try {
-      return decodeURIComponent(value).toLowerCase();
-    } catch {
-      return value.toLowerCase();
-    }
-  };
+  let decoded = slug;
+  try {
+    decoded = decodeURIComponent(slug);
+  } catch {}
 
-  const targetSlug = normalizeSlug(slug);
+  const encoded = encodeURIComponent(decoded).toLowerCase();
 
-  // ابتدا تلاش برای دریافت محصول با اسلاگ
-  const slugParams = new URLSearchParams({
-    slug: targetSlug,
-    lang: locale,
-  });
-
-  const slugResults = await wordpressFetch(
-    `wc/store/v1/products?${slugParams.toString()}`,
-    { cache: 'no-store' }
+  // اگر خطای شبکه رخ دهد عمداً پرتاب می‌شود تا نسخه‌ی قبلیِ سالم صفحه حفظ شود
+  const found = await wordpressFetch(
+    `wp/v2/product?slug=${encoded}&lang=${locale}&_fields=id`,
+    { next: { revalidate: 60 } }
   );
 
-  if (Array.isArray(slugResults)) {
-    const match = slugResults.find(
-      (product) =>
-        normalizeSlug(product.slug) === targetSlug
-    );
+  const id = Array.isArray(found) ? found[0]?.id : null;
 
-    if (match) {
-      return wordpressFetch(
-        `wc/store/v1/products/${match.id}`,
-        { cache: 'no-store' }
-      );
-    }
-  }
+  // فقط وقتی وردپرس جواب خالی داد، محصول واقعاً وجود ندارد
+  if (!id) return null;
 
-  // اگر جست‌وجوی مستقیم نتیجه نداد، صفحات محصولات را بررسی کن
-  for (let page = 1; page <= 20; page++) {
-    const params = new URLSearchParams({
-      per_page: '100',
-      page: String(page),
-      lang: locale,
-    });
-
-    const products = await wordpressFetch(
-      `wc/store/v1/products?${params.toString()}`,
-      { cache: 'no-store' }
-    );
-
-    if (!Array.isArray(products) || products.length === 0) {
-      break;
-    }
-
-    const match = products.find(
-      (product) =>
-        normalizeSlug(product.slug) === targetSlug
-    );
-
-    if (match) {
-      return wordpressFetch(
-        `wc/store/v1/products/${match.id}`,
-        { cache: 'no-store' }
-      );
-    }
-  }
-
-  return null;
+  return wordpressFetch(`wc/store/v1/products/${id}`, {
+    next: { revalidate: 60 },
+  });
 }
 
 export async function getProductById(id) {
@@ -135,28 +88,3 @@ export async function getProductById(id) {
 
 
 
-export async function getProductVariations(productId, locale = 'fa') {
-  if (!productId) {
-    return [];
-  }
-
-  const params = new URLSearchParams({
-    type: 'variation',
-    parent: String(productId),
-    per_page: '100',
-    lang: locale,
-  });
-
-  const variations = await wordpressFetch(
-    `wc/store/v1/products?${params.toString()}`,
-    {
-      cache: 'no-store',
-    }
-  );
-
-  if (!Array.isArray(variations)) {
-    return [];
-  }
-
-  return variations;
-}

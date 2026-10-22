@@ -4,16 +4,26 @@ import { getProducts } from "@/lib/wordpress/products";
 import { mapWooProduct } from "@/lib/wordpress/mappers";
 import ProductCard from "@/components/shop/ProductCard";
 import { getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 
+export const revalidate = 60;
+
+export function generateStaticParams() {
+    const categories = ["coffee", "powder-products", "250g", "abmive"];
+
+    return ["fa", "en"].flatMap((locale) =>
+        categories.map((category) => ({ locale, category }))
+    );
+}
 export default async function CategoryPage({ params }) {
     const { locale, category } = await params;
-
+    setRequestLocale(locale);
     // ---------------------------------------------
     // 1. پیدا کردن دسته‌بندی از WooCommerce
     // ---------------------------------------------
 
     const productCategory =
-        await getProductCategoryBySlug(category);
+        await getProductCategoryBySlug(category, locale);
 
     if (!productCategory) {
         notFound();
@@ -28,7 +38,12 @@ export default async function CategoryPage({ params }) {
         perPage: 100,
         locale,
     });
-
+    // دسته‌ای که محصول دارد نباید با لیست خالی ساخته و ذخیره شود
+    if (rawProducts.length === 0 && productCategory.count > 0) {
+        throw new Error(
+            `Empty product list for category "${category}" (${locale}), expected ${productCategory.count}`
+        );
+    }
     // ---------------------------------------------
     // 3. تبدیل محصولات WooCommerce
     // ---------------------------------------------

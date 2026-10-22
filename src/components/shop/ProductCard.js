@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
-
+import { isPhoneOrder } from "@/lib/phoneOrder";
 export default function ProductCard({
     product,
     locale,
@@ -44,10 +44,7 @@ export default function ProductCard({
         hasVariationOptions && !selectedVariation;
 
     // محصولاتی که فقط به صورت تلفنی قابل خرید هستند
-    const isPhoneOrderProduct =
-        product.categories?.some(
-            (category) => category.slug === "abmive"
-        );
+    const isPhoneOrderProduct = isPhoneOrder(product);
 
     const productUrl = `/${locale}/product/${product.slug}`;
 

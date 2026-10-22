@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-
+import { isPhoneOrder, PHONE_NUMBER } from "@/lib/phoneOrder";
 import {
     useCallback,
     useEffect,
@@ -313,6 +313,7 @@ export default function BestSellingProductsCarousel({
                         const needsSelection =
                             variationOptions.length > 0 &&
                             !selectedVariations[product.id];
+                        const isPhoneOnly = isPhoneOrder(product);
                         return (
                             <div
                                 key={product.id}
@@ -414,7 +415,7 @@ export default function BestSellingProductsCarousel({
                                         )
                                     }
 
-                                    {variationOptions.length > 0 && (
+                                    {variationOptions.length > 0 && !isPhoneOnly && (
                                         <div className="mx-auto mb-4 w-full max-w-[240px] text-start">
                                             <label
                                                 htmlFor={`carousel-variation-${product.id}`}
@@ -475,7 +476,14 @@ export default function BestSellingProductsCarousel({
                                     )}
 
                                     <div className="flex items-center justify-center gap-2">
-                                        {product.is_purchasable && (
+                                        {isPhoneOnly ? (
+                                            <a
+                                                href={`tel:${PHONE_NUMBER}`}
+                                                className="inline-flex min-w-[145px] items-center justify-center rounded-full bg-[#573B2A] px-5 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-200 hover:bg-[#1c2d43] hover:shadow-lg"
+                                            >
+                                                {locale === "fa" ? "خرید فقط با تماس" : "Purchase by phone"}
+                                            </a>
+                                        ) : product.is_purchasable && (
                                             <button
                                                 type="button"
                                                 onClick={() =>
@@ -489,8 +497,8 @@ export default function BestSellingProductsCarousel({
                                                     needsSelection
                                                 }
                                                 className={`inline-flex min-w-[145px] items-center justify-center gap-2 rounded-full bg-[#9F7238] px-5 py-2.5 text-xs font-bold text-white shadow-md transition-all duration-200 hover:bg-[#1c2d43] hover:shadow-lg ${needsSelection
-                                                        ? "disabled:cursor-not-allowed disabled:opacity-50"
-                                                        : "disabled:cursor-default disabled:opacity-90"
+                                                    ? "disabled:cursor-not-allowed disabled:opacity-50"
+                                                    : "disabled:cursor-default disabled:opacity-90"
                                                     }`}
                                             >
                                                 {isAdding ? (

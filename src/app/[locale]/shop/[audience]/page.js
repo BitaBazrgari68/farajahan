@@ -11,9 +11,15 @@ import {
 import { getProducts } from '@/lib/wordpress/products';
 
 import { mapWooProduct } from '@/lib/wordpress/mappers';
-
+import { setRequestLocale } from 'next-intl/server';
 const validAudiences = ['home', 'cafe', 'business'];
+export const revalidate = 60;
 
+export function generateStaticParams() {
+  return ['fa', 'en'].flatMap((locale) =>
+    validAudiences.map((audience) => ({ locale, audience }))
+  );
+}
 /**
  * دسته‌های مخاطب بخشی از ساختار ثابت سایت هستند.
  *
@@ -24,11 +30,14 @@ const audienceSlugs = [
   'home',
   'cafe',
   'business',
+  'for-the-home',
+  'for-the-cafe',
+  'for-business',
 ];
 
 export default async function AudiencePage({ params }) {
   const { locale, audience } = await params;
-
+  setRequestLocale(locale);
   // --------------------------------------------------
   // 1. بررسی مخاطب
   // --------------------------------------------------
@@ -78,7 +87,11 @@ export default async function AudiencePage({ params }) {
     perPage: 100,
     locale,
   });
-
+  if (audienceProducts.length === 0 && audienceCategory.count > 0) {
+    throw new Error(
+      `Empty product list for audience "${audience}" (${locale}), expected ${audienceCategory.count}`
+    );
+  }
   const mappedAudienceProducts =
     audienceProducts.map(mapWooProduct);
 
@@ -131,7 +144,11 @@ export default async function AudiencePage({ params }) {
           perPage: 100,
           locale,
         });
-
+      if (categoryProducts.length === 0 && category.count > 0) {
+        throw new Error(
+          `Empty product list for category "${category.slug}" on audience "${audience}" (${locale}), expected ${category.count}`
+        );
+      }
       const mappedCategoryProducts =
         categoryProducts.map(mapWooProduct);
 
@@ -197,7 +214,7 @@ export default async function AudiencePage({ params }) {
                 </h2>
               </div>
 
-              
+
               {/* کارت محصولات */}
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
 

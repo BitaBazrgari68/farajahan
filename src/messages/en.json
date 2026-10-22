@@ -89,7 +89,7 @@
   },
   "coffeeExperience": {
     "eyebrow": "Our Expertise",
-    "title": "6 Years of Specialty Coffee Roasting Experience",
+    "title": "12 Years of Specialty Coffee Roasting Experience",
     "description": "At Farajahan, we combine traditional coffee roasting techniques with modern knowledge to bring you the finest specialty coffee beans from around the world.",
     "button": "Learn More"
   },
@@ -130,7 +130,7 @@
   },
   "footer": {
     "aboutTitle": "About Farajahan",
-    "aboutDescription": "Specialists in specialty coffee roasting with more than 6 years of experience. We bring you the finest coffee beans from around the world.",
+    "aboutDescription": "Specialists in specialty coffee roasting with more than 12 years of experience. We bring you the finest coffee beans from around the world.",
     "linksTitle": "Important Links",
     "link1": "Home",
     "link2": "Products",
@@ -140,7 +140,7 @@
     "phone": "+98 912 3456 789",
     "email": "info@farajahan.com",
     "address": "Mashhad, Iran",
-    "copyright": "© 1403 Farajahan. All rights reserved.",
+    "copyright": "© 1405 Farajahan. All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Use"
   },
@@ -645,5 +645,145 @@
     "issueQuantityAdjusted": "The quantity of \"{name}\" was changed from {requested} to {actual}.",
     "issueOutOfStock": "\"{name}\" is out of stock and was removed from your cart.",
     "issueUnavailable": "\"{name}\" is unavailable and was removed from your cart."
+  },
+  "contact": {
+    "metaTitle": "Contact Us | Farajahan",
+    "eyebrow": "Get in touch",
+    "title": "Our support team is here to help",
+    "description": "Use the details below to reach our representatives, sales team and branches.",
+    "main": {
+      "factory": {
+        "title": "Factory phone",
+        "note": "We are here to answer you"
+      },
+      "agents": {
+        "title": "Agents affairs",
+        "note": "We are here to answer you"
+      },
+      "sales": {
+        "title": "Sales",
+        "note": "Call to arrange your purchase"
+      }
+    },
+    "mashhadTitle": "Mashhad sales agents",
+    "mashhadRole": "Mashhad sales agent",
+    "provincesTitle": "Regional sales representatives",
+    "representativeRole": "{city} sales representative",
+    "complaints": {
+      "title": "Complaints",
+      "note": "Share your feedback with us"
+    },
+    "address": {
+      "title": "Factory address",
+      "value": "Chenaran Industrial Town, Phase 2, Development 2"
+    },
+    "productsCta": {
+      "title": "Farajahan products",
+      "description": "From coffee beans to powder products and fruit drinks",
+      "button": "View products"
+    }
+  },
+  "about": {
+    "metaTitle": "About Us | Farajahan",
+    "metaDescription": "Farajahan is the brand of Ghahveh Gostaran Sanat Shargh, with more than 12 years of coffee processing experience, focused on R&D, world-class quality and customer satisfaction.",
+    "hero": {
+      "eyebrow": "Who we are",
+      "title": "About Farajahan",
+      "subtitle": "Ghahveh Gostaran Sanat Shargh Company",
+      "description": "Our goal is to offer world-class products, a lasting flavor and a different coffee experience.",
+      "productsButton": "View Products",
+      "contactButton": "Contact Us"
+    },
+    "story": {
+      "eyebrow": "Our story",
+      "title": "From 12 years of experience to the Farajahan brand",
+      "p1": "With more than 12 years of experience in coffee processing, our company officially registered as \"Ghahveh Gostaran Sanat Shargh\" in 1398 (Solar Hijri) and began its activity under the Farajahan brand.",
+      "p2": "The company's active research and development system plays a key role in producing world-class, health-oriented products.",
+      "p3": "Quality has always been a priority in our policy. Relying on up-to-date knowledge and international experience in the coffee industry, we work to draw a clear vision for the years ahead, one in which we can satisfy the taste of those who love the unique aroma and flavor of coffee.",
+      "imageAlt": "Farajahan coffee bag and a cup of coffee"
+    },
+    "journey": {
+      "eyebrow": "Our journey",
+      "title": "From bean to cup",
+      "description": "The four stages every Farajahan coffee pack goes through before it reaches you.",
+      "steps": {
+        "arrival": {
+          "title": "Bean arrival",
+          "description": "Selecting coffee beans before they enter the production line"
+        },
+        "roasting": {
+          "title": "Roasting",
+          "description": "Precise, fresh roasting built on modern knowledge and team experience"
+        },
+        "packaging": {
+          "title": "Packaging",
+          "description": "Packaging that preserves the aroma and flavor of the coffee"
+        },
+        "shipping": {
+          "title": "Shipping",
+          "description": "Orders shipped nationwide by post and freight"
+        }
+      }
+    },
+    "values": {
+      "eyebrow": "Why Farajahan?",
+      "title": "The values that set us apart",
+      "items": {
+        "quality": {
+          "title": "Quality first",
+          "description": "Quality has always been a priority in our policy"
+        },
+        "rnd": {
+          "title": "Research & development",
+          "description": "An active R&D system for health-oriented products"
+        },
+        "freshRoast": {
+          "title": "Freshly roasted",
+          "description": "Precise roasting to preserve the aroma and flavor of every cup"
+        },
+        "customer": {
+          "title": "Customer satisfaction",
+          "description": "Focused on a different coffee experience and your satisfaction"
+        }
+      }
+    },
+    "team": {
+      "eyebrow": "In brief",
+      "title": "Our team",
+      "p1": "Our goal is to offer world-class products, a lasting flavor and a different coffee experience.",
+      "p2": "Our focus on research and development, innovation and customer satisfaction has made us one of the trusted names in the coffee industry.",
+      "imageAlt": "The Farajahan team"
+    },
+    "stats": {
+      "title": "Farajahan at a glance",
+      "items": {
+        "years": "Years of coffee processing experience",
+        "since": "Brand officially launched (Solar Hijri)",
+        "agents": "Sales agents and representatives",
+        "products": "Products in the store"
+      }
+    },
+    "gallery": {
+      "eyebrow": "Gallery",
+      "title": "Pure coffee moments",
+      "description": "Pictures of the factory, products and cups of Farajahan.",
+      "previous": "Previous image",
+      "next": "Next image",
+      "alts": {
+        "roastMachine": "Coffee roasting machine at the Farajahan factory",
+        "freshBeans": "Freshly roasted coffee beans",
+        "packaging": "Coffee packaging line",
+        "products": "Farajahan products",
+        "cup": "A cup of Farajahan coffee",
+        "lab": "Farajahan research and development"
+      }
+    },
+    "network": {
+      "eyebrow": "Sales network",
+      "title": "Beside you, across the country",
+      "description": "{count} sales agents and representatives in Mashhad and other cities are ready to help you.",
+      "contactButton": "Contact Us",
+      "productsButton": "View Products"
+    }
   }
 }

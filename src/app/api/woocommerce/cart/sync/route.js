@@ -60,11 +60,14 @@ export async function POST(request) {
             );
         }
 
+        // زبان صفحه‌ی کاربر؛ فقط مقدارهای شناخته‌شده پذیرفته می‌شود
+        const lang = body?.lang === "en" ? "en" : "fa";
+
         let cartToken = getCartToken(request);
         const failures = new Map(); // wooId -> error code
 
         // 1) خواندن Cart فعلی Woo
-        const current = await wcStoreFetch("/cart", { cartToken });
+        const current = await wcStoreFetch("/cart", { cartToken, lang });
         cartToken = current.cartToken;
 
         if (!current.ok) {
@@ -91,12 +94,14 @@ export async function POST(request) {
                     method: "POST",
                     body: { key: item.key },
                     cartToken,
+                    lang,
                 });
             } else if (want.quantity !== item.quantity) {
                 result = await wcStoreFetch("/cart/update-item", {
                     method: "POST",
                     body: { key: item.key, quantity: want.quantity },
                     cartToken,
+                    lang,
                 });
             } else {
                 continue;
@@ -128,6 +133,7 @@ export async function POST(request) {
                 method: "POST",
                 body: { id, quantity: want.quantity },
                 cartToken,
+                lang,
             });
 
             cartToken = result.cartToken;
@@ -153,7 +159,7 @@ export async function POST(request) {
         let cart = latestCart;
 
         if (!cart || failures.size > 0) {
-            const final = await wcStoreFetch("/cart", { cartToken });
+            const final = await wcStoreFetch("/cart", { cartToken, lang });
             cartToken = final.cartToken;
 
             if (!final.ok) {
@@ -165,6 +171,8 @@ export async function POST(request) {
 
             cart = final.data;
         }
+
+        
 
         const issues = [];
         const finalIds = new Set();

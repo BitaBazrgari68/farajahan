@@ -34,7 +34,7 @@ export default function Header() {
         },
         {
             label: t("shop"),
-            href: `/${currentLocale}/products`,
+            href: `/${currentLocale}/shop`,
             submenu: [
                 {
                     label: t("coffeeBeans"),
@@ -70,7 +70,7 @@ export default function Header() {
         },
         {
             label: t("faq"),
-            href: `/${currentLocale}/faq`,
+            href: `/${currentLocale}#faq`,
         },
         {
             label: t("about"),
@@ -288,7 +288,7 @@ export default function Header() {
 
                         {/* Mobile Menu */}
                         <div className="md:hidden">
-                            <MobileMenu />
+                            <MobileMenu items={menuItems} />
                         </div>
                     </div>
                 </div>

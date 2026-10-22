@@ -7,9 +7,10 @@ import CoffeeFinderCTA from '@/components/home/CoffeeFinderCTA';
 import CoffeeRoastingHero from '@/components/home/CoffeeRoastingHero';
 import AudienceCategories from '@/components/home/AudienceCategories';
 import BestSellingProducts from '@/components/home/BestSellingProducts';
+import { setRequestLocale } from "next-intl/server";
 export default async function Home({ params }) {
   const { locale } = await params;
-
+setRequestLocale(locale);
   const t = await getTranslations({ locale });
 
   return (

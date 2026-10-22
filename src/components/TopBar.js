@@ -1,10 +1,25 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
+
+// آدرس همین صفحه در زبان دیگر. صفحه‌ی محصول در هر زبان slug جدا دارد،
+// پس با عوض شدن زبان به فروشگاه همان زبان می‌رود.
+function getSwitchedPath(pathname, locale) {
+  const segments = (pathname || '/').split('/');
+
+  segments[1] = locale;
+
+  if (segments[2] === 'product') {
+    return `/${locale}/shop`;
+  }
+
+  return segments.join('/') || `/${locale}`;
+}
 
 export default function TopBar() {
   const params = useParams();
+  const pathname = usePathname();
   const currentLocale = params?.locale || 'fa';
 
   return (
@@ -16,7 +31,7 @@ export default function TopBar() {
 
           {/* Persian */}
           <Link
-            href="/fa"
+            href={getSwitchedPath(pathname, 'fa')}
             className={`
               flex items-center gap-2 transition-all duration-300
               ${
@@ -37,7 +52,7 @@ export default function TopBar() {
 
           {/* English */}
           <Link
-            href="/en"
+            href={getSwitchedPath(pathname, 'en')}
             className={`
               flex items-center gap-2 transition-all duration-300
               ${
