@@ -6,7 +6,6 @@ import Image from "next/image";
 import {
     Search,
     ShoppingCart,
-    User,
     ChevronDown,
 } from "lucide-react";
 
@@ -15,7 +14,7 @@ import { useCartStore } from "@/store/cartStore";
 import TopBar from "./TopBar";
 import MobileMenu from "./MobileMenu";
 
-
+import AccountButton from "./auth/AccountButton";
 export default function Header() {
     const currentLocale = useLocale();
     const t = useTranslations("header");
@@ -270,21 +269,7 @@ export default function Header() {
                         </Link>
 
                         {/* Account */}
-                        <Link
-                            href={`/${currentLocale}/account`}
-                            aria-label={t("account")}
-                            className="
-                                text-coffee-dark
-                                transition-colors
-                                duration-200
-                                hover:text-gold
-                            "
-                        >
-                            <User
-                                size={21}
-                                strokeWidth={1.8}
-                            />
-                        </Link>
+                        <AccountButton />
 
                         {/* Mobile Menu */}
                         <div className="md:hidden">
