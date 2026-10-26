@@ -61,6 +61,25 @@
       "generic": "Something went wrong. Please try again."
     }
   },
+  "account": {
+    "ordersTitle": "My Orders",
+    "ordersLink": "My orders",
+    "loading": "Loading…",
+    "loginPrompt": "Sign in to see your previous orders.",
+    "loginButton": "Sign in with mobile number",
+    "empty": "You don't have any orders yet.",
+    "startShopping": "Start shopping",
+    "loadError": "Couldn't load your orders.",
+    "retry": "Try again",
+    "orderNumber": "Order #{number}",
+    "total": "Total",
+    "currency": "Toman",
+    "note": "Only paid orders are shown in this list.",
+    "status": {
+      "processing": "Processing",
+      "completed": "Completed"
+    }
+  },
   "hero": {
     "eyebrow": "Coffee for every moment",
     "titleLine1": "Every cup...",

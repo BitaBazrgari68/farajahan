@@ -12,6 +12,8 @@ import {
     readPaidGuardCookie,
     clearPaidGuardCookie,
 } from "@/lib/lastOrderCookie";
+import { getSession } from "@/lib/session";
+import { linkOrderToCustomer } from "@/lib/customerOrders";
 const PAYMENT_METHOD = "WC_ZPal";
 
 const GUEST_EMAIL_DOMAIN =
@@ -53,6 +55,8 @@ function normalizeItems(items) {
 export async function POST(request) {
     try {
         const body = await request.json();
+        // اگر کاربر وارد شده باشد، سفارش به مشتری او وصل می‌شود
+        const session = getSession(request);
         const lang = body?.lang === "en" ? "en" : "fa";
         const desired = normalizeItems(body?.items);
 
@@ -102,7 +106,9 @@ export async function POST(request) {
         }
 
         // اگر ایمیل نبود، ایمیل جایگزین روی دامنه‌ی خودمان
-        const email = emailInput || `${phone}@${GUEST_EMAIL_DOMAIN}`;
+        const email =
+            emailInput ||
+            `${session?.mobile || phone}@${GUEST_EMAIL_DOMAIN}`;
 
         let cartToken = getCartToken(request);
 
@@ -201,6 +207,13 @@ export async function POST(request) {
         }
 
         const d = result.data;
+        // شکست این مرحله خرید را متوقف نمی‌کند؛ شناسه‌ها در لاگ می‌مانند
+        if (session && d.order_id) {
+            await linkOrderToCustomer(
+                Number(d.order_id),
+                session.customerId
+            );
+        }
 
         const response = jsonWithCart(
             {

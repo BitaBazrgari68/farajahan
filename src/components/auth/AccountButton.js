@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import { User } from "lucide-react";
 import { useAuth } from "@/components/providers/AuthProvider";
 
 export default function AccountButton() {
+    const locale = useLocale();
     const t = useTranslations("header");
     const tAuth = useTranslations("auth");
+    const tAccount = useTranslations("account");
 
     const { status, mobile, isMember, openLogin, logout } = useAuth();
 
@@ -102,12 +105,21 @@ export default function AccountButton() {
                         <bdi dir="ltr">{mobile}</bdi>
                     </p>
 
+                    <Link
+                        href={`/${locale}/account/orders`}
+                        role="menuitem"
+                        onClick={() => setMenuOpen(false)}
+                        className="mt-4 block w-full rounded-xl bg-cream px-4 py-2.5 text-center text-sm font-semibold text-coffee-dark transition hover:bg-gold-light"
+                    >
+                        {tAccount("ordersLink")}
+                    </Link>
+
                     <button
                         type="button"
                         role="menuitem"
                         onClick={handleLogout}
                         disabled={isLoggingOut}
-                        className="mt-4 w-full rounded-xl border border-black/10 px-4 py-2.5 text-sm font-semibold text-coffee-dark transition hover:bg-cream disabled:opacity-50"
+                        className="mt-2 w-full rounded-xl border border-black/10 px-4 py-2.5 text-sm font-semibold text-coffee-dark transition hover:bg-cream disabled:opacity-50"
                     >
                         {isLoggingOut ? tAuth("loggingOut") : tAuth("logout")}
                     </button>

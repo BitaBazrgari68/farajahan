@@ -14,7 +14,7 @@ export function hasAdminKeys() {
 
 export async function wcAdminFetch(
     path,
-    { method = "GET", body, query } = {}
+    { method = "GET", body, query, timeoutMs = REQUEST_TIMEOUT_MS } = {}
 ) {
     if (!hasAdminKeys()) {
         return {
@@ -44,7 +44,7 @@ export async function wcAdminFetch(
         },
         body: body ? JSON.stringify(body) : undefined,
         cache: "no-store",
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+        signal: AbortSignal.timeout(timeoutMs),
     });
 
     const data = await response.json().catch(() => null);
