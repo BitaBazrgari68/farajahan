@@ -2,7 +2,24 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-
+function InstagramIcon({ className }) {
+    return (
+        <svg
+            className={className}
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <rect x="3" y="3" width="18" height="18" rx="5" />
+            <circle cx="12" cy="12" r="4" />
+            <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+        </svg>
+    );
+}
 export default function Footer() {
     const locale = useLocale();
     const t = useTranslations('footer');
@@ -16,10 +33,10 @@ export default function Footer() {
             {/* Main Footer */}
             <div className="px-4 py-16 sm:px-6 lg:px-8 relative z-10">
                 <div className="mx-auto max-w-5xl ">
-                    
+
                     {/* Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 justify-items-center">
-                        
+
                         {/* Column 1 - About */}
                         <div className={isRTL ? 'text-right' : 'text-left'}>
                             <h3 className="text-lg font-bold text-white mb-4 ">
@@ -29,22 +46,16 @@ export default function Footer() {
                                 {t('aboutDescription')}
                             </p>
                             {/* Social Icons */}
-                            <div className={`flex gap-4 mt-6 ${isRTL ? 'justify-end' : 'justify-start'}`}>
-                                <a href="#" className="text-gold hover:text-gold-light transition">
-                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                                    </svg>
-                                </a>
-                                <a href="#" className="text-gold hover:text-gold-light transition">
-                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2s9 5 20 5a9.5 9.5 0 00-9-5.5c4.75 2.25 7-7 7-7"/>
-                                    </svg>
-                                </a>
-                                <a href="#" className="text-gold hover:text-gold-light transition">
-                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" strokeWidth="2"/>
-                                        <path d="M16 11.37A4 4 0 1112.63 8" stroke="currentColor" strokeWidth="2"/>
-                                    </svg>
+                            {/* Social Icons */}
+                            <div className="mt-6 flex gap-4">
+                                <a
+                                    href="https://www.instagram.com/farajahan.coffee"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Instagram"
+                                    className="text-gold transition hover:text-gold-light"
+                                >
+                                    <InstagramIcon className="h-5 w-5" />
                                 </a>
                             </div>
                         </div>
@@ -55,23 +66,23 @@ export default function Footer() {
                                 {t('linksTitle')}
                             </h3>
                             <nav className="space-y-3">
-                                <a href="#" className="block text-cream/70 hover:text-gold transition text-sm">
+                                <Link href={`/${locale}`} className="block text-cream/70 hover:text-gold transition text-sm">
                                     {t('link1')}
-                                </a>
-                                <a href="#" className="block text-cream/70 hover:text-gold transition text-sm">
+                                </Link>
+                                <Link href={`/${locale}/shop`} className="block text-cream/70 hover:text-gold transition text-sm">
                                     {t('link2')}
-                                </a>
-                                <a href="#" className="block text-cream/70 hover:text-gold transition text-sm">
+                                </Link>
+                                <Link href={`/${locale}/about`} className="block text-cream/70 hover:text-gold transition text-sm">
                                     {t('link3')}
-                                </a>
-                                <a href="#" className="block text-cream/70 hover:text-gold transition text-sm">
+                                </Link>
+                                <Link href={`/${locale}/contact`} className="block text-cream/70 hover:text-gold transition text-sm">
                                     {t('link4')}
-                                </a>
+                                </Link>
                             </nav>
                         </div>
 
                         {/* Column 3 - Contact */}
-                        <div className={  `max-w-fit ${isRTL ? 'text-right' : 'text-left'}`}>
+                        <div className={`max-w-fit ${isRTL ? 'text-right' : 'text-left'}`}>
                             <h3 className="text-lg font-bold text-cream mb-4">
                                 {t('contactTitle')}
                             </h3>

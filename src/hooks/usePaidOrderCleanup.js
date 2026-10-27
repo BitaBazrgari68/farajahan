@@ -114,7 +114,7 @@ export function usePaidOrderCleanup() {
                         useCartStore.getState().setItems([]);
                         clearCheckoutForm();
                         setClearedOrderId(String(data.orderId));
-                        
+
                     }
                 } else if (
                     data?.state === "failed" ||
@@ -124,7 +124,11 @@ export function usePaidOrderCleanup() {
                     markChecked(signature);
                 }
             } catch (err) {
-                console.error("Paid order check failed:", err);
+                if (err?.name === "AbortError") {
+                    console.warn("Paid order check timed out");
+                } else {
+                    console.error("Paid order check failed:", err);
+                }
                 setCheckFailed(true);
             } finally {
                 setIsChecking(false);

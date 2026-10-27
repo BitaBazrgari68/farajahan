@@ -4,7 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuth } from "@/components/providers/AuthProvider";
-
+import { useRouter } from "next/navigation";
+import { useCartStore } from "@/store/cartStore";
 const STATUS_STYLES = {
     processing: "bg-amber-50 text-amber-800 ring-amber-200",
     completed: "bg-green-50 text-green-800 ring-green-200",
@@ -22,6 +23,55 @@ export default function AccountOrdersPage() {
     const [orders, setOrders] = useState(null);
     // idle | loading | done | error
     const [loadState, setLoadState] = useState("idle");
+
+    const router = useRouter();
+    const addItem = useCartStore((state) => state.addItem);
+
+    const [reorderingId, setReorderingId] = useState(null);
+    const [reorderError, setReorderError] = useState(false);
+    const [reorderResult, setReorderResult] = useState(null);
+
+    const handleReorder = async (orderId) => {
+        if (reorderingId) return;
+
+        setReorderingId(orderId);
+        setReorderError(false);
+        setReorderResult(null);
+
+        try {
+            const response = await fetch(
+                `/api/account/orders/${orderId}/reorder`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ lang: locale === "en" ? "en" : "fa" }),
+                }
+            );
+
+            if (!response.ok) throw new Error("reorder_failed");
+
+            const data = await response.json();
+
+            // ادغام با سبد فعلی؛ addItem تعداد قلم تکراری را جمع می‌کند
+            for (const item of data.items) {
+                addItem({ ...item, cachedAt: Date.now() });
+            }
+
+            if (data.skipped.length > 0) {
+                // قبل از رفتن به سبد، کاربر ببیند چه چیزی اضافه نشد
+                setReorderResult({
+                    added: data.items.length,
+                    skipped: data.skipped,
+                });
+            } else {
+                router.push(`/${locale}/cart`);
+            }
+        } catch {
+            setReorderError(true);
+        } finally {
+            setReorderingId(null);
+        }
+    };
 
     const loadOrders = useCallback(async () => {
         setLoadState("loading");
@@ -131,6 +181,42 @@ export default function AccountOrdersPage() {
     } else {
         content = (
             <div className="space-y-4">
+
+                {reorderError && (
+                    <div
+                        role="alert"
+                        className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm leading-7 text-red-700"
+                    >
+                        {t("reorderError")}
+                    </div>
+                )}
+
+                {reorderResult && (
+                    <div
+                        role="status"
+                        className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm leading-7 text-amber-900"
+                    >
+                        <p className="font-semibold">{t("reorderSkippedTitle")}</p>
+
+                        <ul className="mt-2 space-y-1">
+                            {reorderResult.skipped.map((entry, index) => (
+                                <li key={index}>
+                                    {entry.name} ({t(`skippedReason.${entry.reason}`)})
+                                </li>
+                            ))}
+                        </ul>
+
+                        {reorderResult.added > 0 && (
+                            <Link
+                                href={`/${locale}/cart`}
+                                className="mt-3 inline-flex rounded-xl bg-coffee-dark px-4 py-2 text-xs font-bold text-white transition hover:bg-coffee-brown"
+                            >
+                                {t("reorderGoToCart")}
+                            </Link>
+                        )}
+                    </div>
+                )}
+
                 {orders.map((order) => (
                     <article
                         key={order.id}
@@ -194,6 +280,15 @@ export default function AccountOrdersPage() {
                                 </span>
                             </span>
                         </div>
+                        <button
+                            type="button"
+                            onClick={() => handleReorder(order.id)}
+                            disabled={Boolean(reorderingId)}
+                            aria-busy={reorderingId === order.id}
+                            className="mt-4 w-full rounded-2xl bg-coffee-dark px-5 py-3 text-sm font-bold text-white transition hover:bg-coffee-brown disabled:pointer-events-none disabled:opacity-50"
+                        >
+                            {reorderingId === order.id ? t("reordering") : t("reorder")}
+                        </button>
                     </article>
                 ))}
 

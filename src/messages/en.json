@@ -75,6 +75,16 @@
     "total": "Total",
     "currency": "Toman",
     "note": "Only paid orders are shown in this list.",
+    "reorder": "Order again",
+    "reordering": "Adding to cart…",
+    "reorderError": "Couldn't reorder. Please try again.",
+    "reorderSkippedTitle": "These items couldn't be added to your cart:",
+    "reorderGoToCart": "Go to cart",
+    "skippedReason": {
+      "unavailable": "Unavailable",
+      "out_of_stock": "Out of stock",
+      "phone_only": "Phone orders only"
+    },
     "status": {
       "processing": "Processing",
       "completed": "Completed"
@@ -188,12 +198,12 @@
     "link1": "Home",
     "link2": "Products",
     "link3": "About Us",
-    "link4": "Blog",
+    "link4": "Contact Us",
     "contactTitle": "Contact Us",
-    "phone": "+98 912 3456 789",
+    "phone": "02191096656",
     "email": "info@farajahan.com",
     "address": "Mashhad, Iran",
-    "copyright": "© 1405 Farajahan. All rights reserved.",
+    "copyright": "© 2026 Farajahan. All rights reserved.",
     "privacy": "Privacy Policy",
     "terms": "Terms of Use"
   },

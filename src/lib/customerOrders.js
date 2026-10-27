@@ -79,16 +79,59 @@ export async function getCustomerOrders(customerId) {
                 productId: item.product_id,
                 variationId: item.variation_id || 0,
                 // مثلاً «آئروپرس»؛ فقط ویژگی‌های قابل‌نمایش (کلیدهای داخلی با _ شروع می‌شوند)
-                options: (item.meta_data || [])
-                    .filter(
-                        (meta) =>
-                            meta?.display_key &&
-                            !String(meta.key).startsWith("_") &&
-                            typeof meta.display_value === "string"
-                    )
-                    .map((meta) => meta.display_value),
+                options: itemOptions(item),
             })),
         }));
 
     return { ok: true, orders };
+}
+
+// مثلاً «آئروپرس»؛ فقط ویژگی‌های قابل‌نمایش (کلیدهای داخلی با _ شروع می‌شوند)
+export function itemOptions(item) {
+    return (item?.meta_data || [])
+        .filter(
+            (meta) =>
+                meta?.display_key &&
+                !String(meta.key).startsWith("_") &&
+                typeof meta.display_value === "string"
+        )
+        .map((meta) => meta.display_value);
+}
+
+// اقلام سفارش، فقط اگر مال همین مشتری و پرداخت‌شده باشد.
+// نبودن، مال دیگری بودن و وضعیت نامعتبر را عمداً یکسان برمی‌گردانیم (not_found).
+export async function getOwnedOrderItems(orderId, customerId) {
+    const result = await wcAdminFetch(`/orders/${orderId}`);
+
+    if (result.status === 404) return { state: "not_found", items: [] };
+
+    if (!result.ok || !result.data) {
+        console.error("Reorder: read order failed:", {
+            orderId,
+            customerId,
+            status: result.status,
+        });
+
+        return { state: "error", items: [] };
+    }
+
+    const order = result.data;
+
+    if (
+        order.customer_id !== customerId ||
+        !LISTED_STATUSES.includes(order.status)
+    ) {
+        return { state: "not_found", items: [] };
+    }
+
+    return {
+        state: "ok",
+        items: (order.line_items || []).map((item) => ({
+            name: item.name,
+            productId: Number(item.product_id) || 0,
+            variationId: Number(item.variation_id) || 0,
+            quantity: Number(item.quantity) || 0,
+            options: itemOptions(item),
+        })),
+    };
 }

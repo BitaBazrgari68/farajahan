@@ -75,6 +75,16 @@
     "total": "مبلغ کل",
     "currency": "تومان",
     "note": "فقط سفارش‌های پرداخت‌شده در این فهرست نمایش داده می‌شوند.",
+    "reorder": "سفارش مجدد",
+    "reordering": "در حال افزودن به سبد…",
+    "reorderError": "سفارش مجدد انجام نشد. دوباره تلاش کنید.",
+    "reorderSkippedTitle": "این اقلام به سبد اضافه نشدند:",
+    "reorderGoToCart": "رفتن به سبد خرید",
+    "skippedReason": {
+      "unavailable": "در دسترس نیست",
+      "out_of_stock": "ناموجود",
+      "phone_only": "فقط با تماس تلفنی"
+    },
     "status": {
       "processing": "در حال پردازش",
       "completed": "تکمیل‌شده"
@@ -188,9 +198,9 @@
     "link1": "صفحه نخست",
     "link2": "محصولات",
     "link3": "درباره ما",
-    "link4": "وبلاگ",
+    "link4": "تماس با ما",
     "contactTitle": "تماس با ما",
-    "phone": "+98 912 3456 789",
+    "phone": "02191096656",
     "email": "info@farajahan.com",
     "address": "مشهد، ایران",
     "copyright": "© ۱۴۰۵ فراجهان. تمام حقوق محفوظ است.",
