@@ -1,5 +1,8 @@
 import { wcAdminFetch } from "@/lib/wcAdmin";
+import { IRAN_PROVINCE_CODES } from "@/data/iranProvinces";
 
+const GUEST_EMAIL_DOMAIN =
+    process.env.GUEST_EMAIL_DOMAIN || "guest.farajahan.com";
 // فقط سفارش‌هایی که پرداختشان تأیید شده در پنل نشان داده می‌شوند
 export const LISTED_STATUSES = ["processing", "completed"];
 
@@ -38,17 +41,18 @@ export async function linkOrderToCustomer(orderId, customerId) {
 }
 
 // سفارش‌های یک مشتری؛ فقط فیلدهای لازم برای نمایش برگردانده می‌شود
-export async function getCustomerOrders(customerId) {
+export async function getCustomerOrders(customerId, { limit = 50 } = {}) {
+    const perPage = Math.min(Math.max(Number.parseInt(limit, 10) || 50, 1), 50);
+
     const result = await wcAdminFetch("/orders", {
         query: {
             customer: customerId,
             status: LISTED_STATUSES.join(","),
-            per_page: 50,
+            per_page: perPage,
             orderby: "date",
             order: "desc",
         },
     });
-
     if (!result.ok || !Array.isArray(result.data)) {
         console.error("Customer orders failed:", {
             customerId,
@@ -133,5 +137,60 @@ export async function getOwnedOrderItems(orderId, customerId) {
             quantity: Number(item.quantity) || 0,
             options: itemOptions(item),
         })),
+    };
+}
+
+// آدرس آخرین سفارش پرداخت‌شده‌ی مشتری، برای پر کردن فرم پرداخت
+export async function getCheckoutDefaults(customerId) {
+    const result = await wcAdminFetch("/orders", {
+        query: {
+            customer: customerId,
+            status: LISTED_STATUSES.join(","),
+            per_page: 1,
+            orderby: "date",
+            order: "desc",
+        },
+    });
+
+    if (!result.ok || !Array.isArray(result.data)) {
+        console.error("Checkout defaults failed:", {
+            customerId,
+            status: result.status,
+        });
+
+        return { ok: false, defaults: null };
+    }
+
+    // اگر فیلتر ووکامرس نادیده گرفته شود، سفارش دیگران استفاده نمی‌شود
+    const order = result.data.find(
+        (item) =>
+            item?.customer_id === customerId &&
+            LISTED_STATUSES.includes(item?.status)
+    );
+
+    if (!order) return { ok: true, defaults: null };
+
+    const billing = order.billing || {};
+    const text = (value) => String(value ?? "").trim();
+
+    const email = text(billing.email);
+
+    return {
+        ok: true,
+        defaults: {
+            firstName: text(billing.first_name),
+            lastName: text(billing.last_name),
+            phone: text(billing.phone),
+            // ایمیل جایگزین ساخته‌ی خودمان در فرم نمایش داده نمی‌شود
+            email: email.toLowerCase().endsWith(`@${GUEST_EMAIL_DOMAIN}`)
+                ? ""
+                : email,
+            state: IRAN_PROVINCE_CODES.has(text(billing.state))
+                ? text(billing.state)
+                : "",
+            city: text(billing.city),
+            address: text(billing.address_1),
+            postcode: text(billing.postcode),
+        },
     };
 }

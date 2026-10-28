@@ -40,7 +40,7 @@ export default function MobileMenu({ items = [] }) {
         <div className="absolute top-full left-0 right-0 bg-white shadow-lg md:hidden">
           <nav className="flex flex-col p-4 gap-1">
             {items.map((item) => (
-              <div key={item.href}>
+              <div key={item.label}>
                 <Link
                   href={item.href}
                   onClick={close}
@@ -53,7 +53,7 @@ export default function MobileMenu({ items = [] }) {
                   <div className="ms-4 border-s border-cream">
                     {item.submenu.map((subItem) => (
                       <Link
-                        key={subItem.href}
+                        key={subItem.label}
                         href={subItem.href}
                         onClick={close}
                         className="block py-2 px-3 text-sm text-coffee-dark/80 hover:text-gold transition"

@@ -11,6 +11,7 @@ import {
     saveCheckoutForm,
     clearCheckoutForm,
 } from "@/lib/checkoutFormStorage";
+import { useAuth } from "@/components/providers/AuthProvider";
 const toLatinDigits = (value) =>
     String(value ?? "")
         .replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
@@ -135,6 +136,50 @@ export default function CheckoutPage({ params }) {
 
         saveCheckoutForm(form);
     }, [form, formReady]);
+
+    const { isMember } = useAuth();
+    const autofillRef = useRef(false);
+
+    // پر کردن فرم از آخرین سفارش، فقط وقتی فرم کاملاً خالی است
+    useEffect(() => {
+        if (!isMember) {
+            autofillRef.current = false;
+            return;
+        }
+
+        if (!formReady || autofillRef.current) return;
+
+        autofillRef.current = true;
+
+        const run = async () => {
+            try {
+                const response = await fetch(
+                    "/api/account/checkout-defaults",
+                    { cache: "no-store" }
+                );
+
+                if (!response.ok) return;
+
+                const data = await response.json();
+                const defaults = data?.defaults;
+
+                if (!defaults) return;
+
+                setForm((current) => {
+                    const isEmpty = Object.values(current).every(
+                        (value) => String(value).trim() === ""
+                    );
+
+                    // اگر کاربر چیزی نوشته یا فرم بازیابی شده، بازنویسی نمی‌شود
+                    return isEmpty ? { ...current, ...defaults } : current;
+                });
+            } catch {
+                // پر نشدن خودکار مهم نیست؛ کاربر فرم را دستی پر می‌کند
+            }
+        };
+
+        run();
+    }, [isMember, formReady]);
     const submittingRef = useRef(false);
 
     // بازگشت با دکمه‌ی برگشت مرورگر: قفل «در حال ثبت» را باز کن

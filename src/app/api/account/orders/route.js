@@ -16,7 +16,9 @@ export async function GET(request) {
     }
 
     try {
-        const result = await getCustomerOrders(session.customerId);
+        const limit = new URL(request.url).searchParams.get("limit");
+
+        const result = await getCustomerOrders(session.customerId, { limit });
 
         if (!result.ok) {
             return NextResponse.json(

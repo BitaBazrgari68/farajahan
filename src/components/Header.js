@@ -55,15 +55,15 @@ export default function Header() {
         },
         {
             label: t("farajahanServices"),
-            href: `/${currentLocale}/services`,
+            href: `/${currentLocale}/contact`,
             submenu: [
                 {
                     label: t("eventSponsorship"),
-                    href: `/${currentLocale}/services/event-sponsorship`,
+                    href: `/${currentLocale}/contact`,
                 },
                 {
                     label: t("agencyRequest"),
-                    href: `/${currentLocale}/services/agency-request`,
+                    href: `/${currentLocale}/contact`,
                 },
             ],
         },
@@ -122,7 +122,7 @@ export default function Header() {
                     >
                         {menuItems.map((item) => (
                             <div
-                                key={item.href}
+                                key={item.label}
                                 className="relative group"
                             >
                                 <Link
@@ -182,7 +182,7 @@ export default function Header() {
                                     >
                                         {item.submenu.map((subItem) => (
                                             <Link
-                                                key={subItem.href}
+                                                key={subItem.label}
                                                 href={subItem.href}
                                                 className="
                                                     block

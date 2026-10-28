@@ -10,7 +10,7 @@ import {
 } from "react";
 
 import LoginModal from "@/components/auth/LoginModal";
-
+import { clearCheckoutForm } from "@/lib/checkoutFormStorage";
 const AuthContext = createContext(null);
 
 export function useAuth() {
@@ -65,7 +65,7 @@ export default function AuthProvider({ children }) {
         } catch {
             // اگر درخواست نرسید، refresh وضعیت واقعی را نشان می‌دهد
         }
-
+        clearCheckoutForm();
         await refresh();
     }, [refresh]);
 

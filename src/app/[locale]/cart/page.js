@@ -160,7 +160,7 @@ export default function CartPage({ params }) {
                         </p>
 
                         <Link
-                            href={`/${locale}/shop/home`}
+                            href={`/${locale}/shop`}
                             className="mt-8 inline-flex min-h-12 items-center justify-center rounded-2xl bg-coffee-dark px-7 py-3 font-semibold text-white transition-all duration-200 hover:bg-coffee hover:shadow-md"
                         >
                             {t("continueShopping")}
@@ -439,7 +439,7 @@ export default function CartPage({ params }) {
                         </Link>
                         {/* Continue Shopping */}
                         <Link
-                            href={`/${locale}/shop/home`}
+                            href={`/${locale}/shop`}
                             className="mt-3 flex min-h-11 w-full items-center justify-center rounded-2xl border border-black/10 px-5 py-3 text-sm font-medium text-coffee-dark transition-colors duration-200 hover:bg-cream"
                         >
                             {t("continueShopping")}
