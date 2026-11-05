@@ -38,10 +38,10 @@ const valueItems = [
 const galleryItems = [
   { id: 'roastMachine', src: '/images/about/gallery-1.webp' },
   { id: 'freshBeans', src: '/images/about/gallery-2.webp' },
-  { id: 'packaging', src: '/images/about/gallery-3.webp' },
+  { id: 'packaging', src: '/images/about/gallery-3.jpg' },
   { id: 'products', src: '/images/about/gallery-4.webp' },
   { id: 'cup', src: '/images/about/gallery-5.webp' },
-  { id: 'lab', src: '/images/about/gallery-6.webp' },
+  { id: 'lab', src: '/images/about/gallery-6.jpg' },
 ];
 
 const glassCard =

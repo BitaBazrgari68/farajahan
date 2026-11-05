@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 
-const BEAN_IMAGE = '/images/about/bean-4.png';
+const BEAN_IMAGE = '/images/about/bean-4.webp';
 
 const beans = [
   {
