@@ -17,8 +17,9 @@ export async function generateStaticParams() {
   try {
     const results = await Promise.all(
       ['fa', 'en'].map(async (locale) => {
+        const base = process.env.WOOCOMMERCE_URL || 'https://old.farajahan.com';
         const res = await fetch(
-          `https://farajahan.com/wp-json/wc/store/v1/products?per_page=100&lang=${locale}&_fields=slug`
+          `${base}/wp-json/wc/store/v1/products?per_page=100&lang=${locale}&_fields=slug`
         );
 
         if (!res.ok) return [];

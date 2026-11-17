@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 const WOOCOMMERCE_URL =
-    process.env.WOOCOMMERCE_URL || "https://farajahan.com";
+    process.env.WOOCOMMERCE_URL || "https://old.farajahan.com";
 
 const CART_COOKIE = "wc_cart_token";
 const CART_COOKIE_MAX_AGE = 60 * 60 * 24 * 2; // 48 hours

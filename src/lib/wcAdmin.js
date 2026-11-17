@@ -2,7 +2,7 @@
 // این فایل را هرگز در کامپوننت‌های سمت کلاینت وارد نکنید.
 
 const WOOCOMMERCE_URL =
-    process.env.WOOCOMMERCE_URL || "https://farajahan.com";
+    process.env.WOOCOMMERCE_URL || "https://old.farajahan.com";
 
 const REQUEST_TIMEOUT_MS = 20 * 1000;
 

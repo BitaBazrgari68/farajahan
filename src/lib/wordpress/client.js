@@ -1,4 +1,4 @@
-const WORDPRESS_URL = 'https://farajahan.com';
+const WORDPRESS_URL =process.env.WOOCOMMERCE_URL || 'https://old.farajahan.com';
 
 const MAX_ATTEMPTS = 3;
 const RETRY_DELAY_MS = 1500;
