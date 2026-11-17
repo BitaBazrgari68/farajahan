@@ -98,7 +98,7 @@
     "eyebrow": "Coffee for every moment",
     "titleLine1": "Every cup...",
     "titleLine2": "starts a new story.",
-    "description": "We carefully select the finest coffees to bring you a truly different coffee experience.",
+    "description": "Farajahan online coffee shop: we carefully select the finest coffees to bring you a truly different coffee experience.",
     "productsButton": "View Products",
     "aboutButton": "About Us",
     "imageAlt": "Farajahan coffee products"
@@ -118,8 +118,8 @@
     }
   },
   "audienceCategories": {
-    "title": "Coffee for You",
-    "description": "Choose the right products based on how you enjoy your coffee",
+    "title": "Buy Coffee for Home, Cafes and Businesses",
+    "description": "Choose fresh roasted coffee beans and ground coffee based on how you enjoy your coffee",
     "home": {
       "title": "For Home",
       "description": "Coffee and products perfect for enjoying at home",
@@ -680,7 +680,7 @@
   },
   "bestSellingProducts": {
     "eyebrow": "BEST SELLING",
-    "title": "Best-Selling Products",
+    "title": "Best-Selling Coffee Products",
     "description": "Our customers' favorite products from Farajahan.",
     "viewAll": "View All Products",
     "noImage": "No Image",
@@ -714,7 +714,8 @@
     "issueUnavailable": "\"{name}\" is unavailable and was removed from your cart."
   },
   "contact": {
-    "metaTitle": "Contact Us | Farajahan",
+    "metaTitle": "Contact Farajahan-Sales Phone, Representatives and Factory Address",
+    "metaDescription": "Contact Farajahan: factory phone, sales line, agents affairs, Mashhad sales agents and regional representatives. Factory address in Chenaran Industrial Town.",
     "eyebrow": "Get in touch",
     "title": "Our support team is here to help",
     "description": "Use the details below to reach our representatives, sales team and branches.",
@@ -751,7 +752,7 @@
     }
   },
   "about": {
-    "metaTitle": "About Us | Farajahan",
+    "metaTitle": "About Farajahan-Ghahveh Gostaran Sanat Shargh Coffee Company",
     "metaDescription": "Farajahan is the brand of Ghahveh Gostaran Sanat Shargh, with more than 12 years of coffee processing experience, focused on R&D, world-class quality and customer satisfaction.",
     "hero": {
       "eyebrow": "Who we are",

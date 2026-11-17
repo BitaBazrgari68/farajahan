@@ -42,7 +42,7 @@ export default async function AudienceCategories({ locale }) {
               decoding="async"
               className="inline-block max-w-12"
               src="/images/home/icon3.png"
-              alt="Testimonials"
+              alt=""
             />
           </div>
 

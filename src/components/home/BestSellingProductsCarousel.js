@@ -355,7 +355,7 @@ export default function BestSellingProductsCarousel({
                                                 product.name
                                             }
                                             fill
-                                            quality={90}
+                                            unoptimized
                                             sizes="350px"
                                             className="object-contain p-2"
                                         />

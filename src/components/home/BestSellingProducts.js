@@ -39,7 +39,7 @@ export default async function BestSellingProducts({ locale = 'fa' }) {
             decoding="async"
             className="inline-block max-w-12"
             src="/images/home/icon3.png"
-            alt="Testimonials"
+            alt=""
           />
         </div>
         

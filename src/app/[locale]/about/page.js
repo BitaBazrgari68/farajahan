@@ -17,7 +17,7 @@ import CountUp from '@/components/about/CountUp';
 import FloatingBeans from '@/components/about/FloatingBeans';
 import GalleryCarousel from '@/components/about/GalleryCarousel';
 import { mashhadAgents, representatives } from '@/data/contactData';
-
+import { SITE_URL, buildAlternates, buildBreadcrumb, buildOrganization } from '@/lib/seo';
 // تعداد محصولات فروشگاه؛ هر وقت عوض شد اینجا را به‌روز کنید
 const PRODUCTS_COUNT = 34;
 
@@ -54,6 +54,10 @@ export async function generateMetadata({ params }) {
   return {
     title: t('metaTitle'),
     description: t('metaDescription'),
+    alternates: buildAlternates(locale, '/about'),
+    openGraph: {
+      url: `/${locale}/about`,
+    },
   };
 }
 
@@ -96,20 +100,21 @@ export default async function AboutPage({ params }) {
     alt: t(`gallery.alts.${item.id}`),
   }));
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'قهوه گستران صنعت شرق',
-    alternateName: 'Farajahan',
-    url: 'https://farajahan.com',
-    logo: 'https://farajahan.com/logo1.png',
-    telephone: '+982191096656',
-    address: {
-      '@type': 'PostalAddress',
-      addressCountry: 'IR',
-      streetAddress: 'شهرک صنعتی چناران، فاز ۲، توسعه ۲',
+  const jsonLd = [
+    buildOrganization(),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'AboutPage',
+      name: t('metaTitle'),
+      description: t('metaDescription'),
+      url: `${SITE_URL}/${locale}/about`,
+      inLanguage: locale,
     },
-  };
+    buildBreadcrumb(locale, [
+      { name: locale === 'fa' ? 'خانه' : 'Home', path: '' },
+      { name: locale === 'fa' ? 'درباره ما' : 'About Us', path: '/about' },
+    ]),
+  ];
 
   return (
     <>
@@ -141,8 +146,8 @@ export default async function AboutPage({ params }) {
               priority
               sizes="100vw"
               className={`-z-10 object-cover ${isRTL
-                  ? 'object-left'
-                  : 'object-right [transform:scaleX(-1)]'
+                ? 'object-left'
+                : 'object-right [transform:scaleX(-1)]'
                 }`}
             />
 
@@ -189,7 +194,7 @@ export default async function AboutPage({ params }) {
                 <Reveal delay={0.48}>
                   <div className="mt-8 flex flex-wrap gap-3">
                     <Link
-                     href={`/${locale}/shop`}
+                      href={`/${locale}/shop`}
                       className="inline-flex min-h-[52px] items-center justify-center rounded-full bg-gold px-7 text-sm font-bold text-coffee-deep shadow-lg transition-colors duration-300 hover:bg-gold-light"
                     >
                       {t('hero.productsButton')}
@@ -523,7 +528,7 @@ export default async function AboutPage({ params }) {
 
                   <Link
                     href={`/${locale}/shop`}
-                   
+
                     className="inline-flex min-h-[52px] items-center justify-center rounded-full border border-gold/50 bg-white/10 px-7 text-sm font-bold text-gold-light backdrop-blur-md transition-colors duration-300 hover:bg-white/20"
                   >
                     {t('network.productsButton')}

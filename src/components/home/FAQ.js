@@ -66,7 +66,7 @@ export default async function FAQ({ locale }) {
               decoding="async"
               className="inline-block max-w-12"
               src="/images/home/icon3.png"
-              alt="Testimonials"
+              alt=""
             />
           </div>
 

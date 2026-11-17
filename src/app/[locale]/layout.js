@@ -4,6 +4,9 @@ import Header from '@/components/Header';
 import CartProvider from '@/components/providers/CartProvider';
 import { setRequestLocale } from 'next-intl/server';
 import AuthProvider from '@/components/providers/AuthProvider';
+import { notFound } from 'next/navigation';
+import { SITE_URL } from '@/lib/seo';
+
 export function generateStaticParams() {
   return [
     { locale: 'fa' },
@@ -11,21 +14,18 @@ export function generateStaticParams() {
   ];
 }
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://farajahan.com';
-
 const SEO = {
   fa: {
-    title: 'قهوه-فروشگاه قهوه|فراجهان',
+    title: 'خرید آنلاین قهوه-دانه قهوه تازه رست-پودر قهوه|فراجهان',
     description:
-      'خرید آنلاین دانه قهوه، قهوه اسپرسو و محصولات پودری فراجهان برای خانه، کافه و کسب‌وکار. رست تازه و ارسال به سراسر ایران.',
+      'فروشگاه اینترنتی قهوه فراجهان؛ خرید دانه قهوه، قهوه آسیاب‌شده و پودر قهوه با رست تازه برای خانه، کافه و کسب‌وکار. ارسال به سراسر ایران.',
     locale: 'fa_IR',
     siteName: 'فراجهان',
   },
   en: {
-    title: 'Coffee-Coffee Shop|Farajahan',
+    title: 'Buy Coffee Online-Fresh Roasted Coffee Beans-Ground Coffee|Farajahan',
     description:
-      'Buy fresh roasted coffee beans, espresso and powder products from Farajahan for home, cafes and businesses. Shipping across Iran.',
+      'Farajahan online coffee shop: buy fresh roasted coffee beans, ground coffee and powder products for home, cafes and businesses. Shipping across Iran.',
     locale: 'en_US',
     siteName: 'Farajahan',
   },
@@ -37,15 +37,14 @@ export async function generateMetadata({ params }) {
 
   return {
     metadataBase: new URL(SITE_URL),
-    title: seo.title,
+    title: {
+      default: seo.title,
+      template: `%s|${seo.siteName}`,
+    },
     description: seo.description,
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        fa: '/fa',
-        en: '/en',
-        'x-default': '/fa',
-      },
+    robots: {
+      index: locale === 'fa',
+      follow: locale === 'fa',
     },
     openGraph: {
       type: 'website',
@@ -53,7 +52,6 @@ export async function generateMetadata({ params }) {
       title: seo.title,
       description: seo.description,
       locale: seo.locale,
-      url: `/${locale}`,
       images: ['/images/hero/farajahan2.png'],
     },
     twitter: {
@@ -65,9 +63,17 @@ export async function generateMetadata({ params }) {
   };
 }
 
+const SUPPORTED_LOCALES = ['fa', 'en'];
+
 export default async function RootLayout({ children, params }) {
   const { locale } = await params;
+
+  if (!SUPPORTED_LOCALES.includes(locale)) {
+    notFound();
+  }
+
   setRequestLocale(locale);
+
   const messages = (
     await import(`../../messages/${locale}.json`)
   ).default;

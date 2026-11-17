@@ -1,8 +1,8 @@
 'use client';
-
+import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
-
+const MotionLink = motion.create(Link);
 export default function CoffeeRoastingHero() {
     const locale = useLocale();
     const t = useTranslations('coffeeExperience');
@@ -40,9 +40,8 @@ export default function CoffeeRoastingHero() {
                         once: true,
                         amount: 0.35,
                     }}
-                    className={`w-full max-w-2xl text-center ${
-                        isRTL ? 'text-right sm:text-center' : 'text-center'
-                    }`}
+                    className={`w-full max-w-2xl text-center ${isRTL ? 'text-right sm:text-center' : 'text-center'
+                        }`}
                 >
 
                     {/* Eyebrow */}
@@ -91,8 +90,9 @@ export default function CoffeeRoastingHero() {
                     </motion.p>
 
                     {/* Button */}
-                    <motion.button
-                        type="button"
+                    {/* Button */}
+                    <MotionLink
+                        href={`/${locale}/about`}
                         initial={{ opacity: 0, y: 12 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{
@@ -111,7 +111,7 @@ export default function CoffeeRoastingHero() {
                         className="inline-flex items-center justify-center rounded-2xl bg-gold px-7 py-3.5 text-sm font-semibold text-coffee-deep shadow-lg transition-colors duration-300 hover:bg-gold-light hover:shadow-xl"
                     >
                         {t('button')}
-                    </motion.button>
+                    </MotionLink>
 
                 </motion.div>
             </div>

@@ -85,6 +85,7 @@ export default function ProductDetails({ product, locale = "fa" }) {
               width={800}
               height={800}
               priority
+              unoptimized
               className="h-full max-h-[520px] w-full object-contain"
               sizes="(max-width: 768px) 100vw, 50vw"
             />

@@ -10,6 +10,8 @@ import {
     representatives,
 } from '@/data/contactData';
 
+import { SITE_URL, buildAlternates, buildBreadcrumb, buildOrganization } from '@/lib/seo';
+
 const mainIcons = {
     factory: Factory,
     agents: Users,
@@ -20,7 +22,14 @@ export async function generateMetadata({ params }) {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'contact' });
 
-    return { title: t('metaTitle') };
+    return {
+        title: t('metaTitle'),
+        description: t('metaDescription'),
+        alternates: buildAlternates(locale, '/contact'),
+        openGraph: {
+            url: `/${locale}/contact`,
+        },
+    };
 }
 
 function PhoneLink({ phone, label, className = '' }) {
@@ -57,7 +66,44 @@ export default async function ContactPage({ params }) {
 
     const t = await getTranslations({ locale, namespace: 'contact' });
     const isRTL = locale === 'fa' || locale === 'ar';
+    const factoryPhone = mainContacts.find((item) => item.id === 'factory')?.phone;
+    const salesPhone = mainContacts.find((item) => item.id === 'sales')?.phone;
 
+    const toInternational = (phone) => `+98${phone.replace(/^0/, '')}`;
+
+    const jsonLd = [
+        {
+            ...buildOrganization(),
+            contactPoint: [
+                {
+                    '@type': 'ContactPoint',
+                    telephone: toInternational(factoryPhone),
+                    contactType: 'customer service',
+                    areaServed: 'IR',
+                    availableLanguage: ['fa', 'en'],
+                },
+                {
+                    '@type': 'ContactPoint',
+                    telephone: toInternational(salesPhone),
+                    contactType: 'sales',
+                    areaServed: 'IR',
+                    availableLanguage: ['fa', 'en'],
+                },
+            ],
+        },
+        {
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            name: t('metaTitle'),
+            description: t('metaDescription'),
+            url: `${SITE_URL}/${locale}/contact`,
+            inLanguage: locale,
+        },
+        buildBreadcrumb(locale, [
+            { name: locale === 'fa' ? 'خانه' : 'Home', path: '' },
+            { name: locale === 'fa' ? 'تماس با ما' : 'Contact Us', path: '/contact' },
+        ]),
+    ];
     return (
         <>
             <main
@@ -234,7 +280,7 @@ export default async function ContactPage({ params }) {
                                 </p>
 
                                 <Link
-                                   href={`/${locale}/shop`}
+                                    href={`/${locale}/shop`}
                                     className="mt-5 inline-flex items-center justify-center rounded-2xl border border-gold/50 bg-gold px-7 py-3.5 text-sm font-bold text-coffee-deep shadow-[0_0_30px_rgba(197,147,76,0.25)] transition-all duration-300 hover:scale-105 hover:bg-gold-light"
                                 >
                                     {t('productsCta.button')}
@@ -244,6 +290,14 @@ export default async function ContactPage({ params }) {
 
                     </section>
                 </div>
+
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(jsonLd),
+                    }}
+                />
+
             </main>
 
             <Footer />
