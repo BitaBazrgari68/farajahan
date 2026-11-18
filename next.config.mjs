@@ -1,10 +1,13 @@
+
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.js');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  // Standalone on your own server, default output on Vercel
+  output: process.env.VERCEL ? undefined : 'standalone',
+
   images: {
     remotePatterns: [
       {
@@ -13,7 +16,9 @@ const nextConfig = {
       },
     ],
   },
+
   staticPageGenerationTimeout: 180,
+
   experimental: {
     cpus: 1,
     staticGenerationMaxConcurrency: 2,
