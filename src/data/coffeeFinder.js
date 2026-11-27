@@ -1,183 +1,115 @@
+// سؤال‌های باریستای فراجهان.
+// هر سؤال فقط به ویژگی‌ای وصل است که واقعاً روی محصولات ووکامرس ثبت شده؛
+// سؤالی که نشود با آن محصولی را امتیاز داد، اینجا نیست.
+//
+// showWhen: سؤال فقط وقتی نمایش داده می‌شود که پاسخ سؤال دیگر
+// یکی از مقدارهای فهرست باشد. مثال: { homeProductKind: ['beans'] }
+
+const intensityOptions = ['mild', 'balanced', 'strong', 'veryStrong'];
+
+// فقط طعم‌هایی که روی محصولات ثبت شده است.
+// برای افزودن طعم تازه: گزینه را اینجا اضافه کنید و ترجمه‌اش را در fa.json و en.json
+const flavorOptions = [
+    'chocolate',
+    'nutty',
+    'fruity',
+    'sweet',
+    'bitter',
+    'sour',
+];
+
+const budgetOptions = ['economy', 'medium', 'professional', 'unlimited'];
+
+const whenBeans = { homeProductKind: ['beans'] };
+const whenPowder = { homeProductKind: ['powder'] };
+
+// برای قهوه‌ی فوری و کپسولی، سؤال‌های طعم و بودجه معنا ندارد
+const whenOfficeBeans = {
+    officeBrewMethod: ['espressoMachine', 'filter', 'mokaPot', 'none'],
+};
+
 export const coffeeFinderQuestions = {
     home: [
         {
-            id: 'experience',
+            id: 'homeProductKind',
             type: 'single',
-            options: [
-                'beginner',
-                'intermediate',
-                'professional',
-            ],
-        },
-        {
-            id: 'drinkingTime',
-            type: 'single',
-            options: [
-                'morning',
-                'daytime',
-                'evening',
-                'allDay',
-            ],
-        },
-        {
-            id: 'dailyCups',
-            type: 'single',
-            options: [
-                'one',
-                'two',
-                'threeToFour',
-                'moreThanFour',
-            ],
+            options: ['beans', 'powder', 'instant'],
         },
         {
             id: 'brewMethod',
             type: 'single',
+            showWhen: whenBeans,
             options: [
                 'espresso',
                 'mokaPot',
-                'v60',
+                'filter',
                 'frenchPress',
                 'aeropress',
+                'chemex',
+                'v60',
                 'turkish',
                 'none',
             ],
         },
         {
-            id: 'flavors',
-            type: 'multiple',
-            options: [
-                'chocolate',
-                'caramel',
-                'nutty',
-                'fruity',
-                'floral',
-                'citrus',
-                'spicy',
-                'sweet',
-            ],
+            id: 'hasGrinder',
+            type: 'single',
+            showWhen: whenBeans,
+            options: ['yes', 'no'],
         },
         {
             id: 'intensity',
             type: 'single',
-            options: [
-                'mild',
-                'balanced',
-                'strong',
-                'veryStrong',
-            ],
+            showWhen: whenBeans,
+            options: intensityOptions,
         },
         {
-            id: 'caffeine',
-            type: 'single',
-            options: [
-                'low',
-                'medium',
-                'high',
-                'veryHigh',
-            ],
-        },
-        {
-            id: 'arabicaRobusta',
-            type: 'single',
-            options: [
-                '100Arabica',
-                'arabicaDominant',
-                'balancedBlend',
-                'robustaDominant',
-                '100Robusta',
-                'noPreference',
-            ],
-        },
-        {
-            id: 'hasGrinder',
-            type: 'single',
-            options: [
-                'yes',
-                'no',
-            ],
-        },
-        {
-            id: 'equipmentStatus',
-            type: 'single',
-            options: [
-                'complete',
-                'partial',
-                'none',
-            ],
-        },
-        {
-            id: 'equipment',
+            id: 'flavors',
             type: 'multiple',
-            options: [
-                'espressoMachine',
-                'grinder',
-                'mokaPot',
-                'v60',
-                'frenchPress',
-                'aeropress',
-                'kettle',
-                'scale',
-                'tamper',
-                'server',
-                'none',
-            ],
+            showWhen: whenBeans,
+            options: flavorOptions,
         },
         {
             id: 'budget',
             type: 'single',
+            showWhen: whenBeans,
+            options: budgetOptions,
+        },
+        {
+            id: 'powderKind',
+            type: 'single',
+            showWhen: whenPowder,
             options: [
-                'economy',
-                'medium',
-                'professional',
-                'unlimited',
+                'cappuccino',
+                'hotChocolate',
+                'masala',
+                'chaiKarak',
+                'coffeeMix',
             ],
         },
         {
-            id: 'quantity',
+            id: 'powderSize',
             type: 'single',
-            options: [
-                '250g',
-                '500g',
-                '1kg',
-                'moreThan1kg',
-            ],
+            showWhen: whenPowder,
+            options: ['small', 'one', 'large'],
         },
     ],
 
     cafe: [
         {
-            id: 'cafeBusinessType',
-            type: 'single',
-            options: [
-                'cafe',
-                'restaurant',
-                'hotel',
-                'bakery',
-                'cafeRestaurant',
-                'other',
-            ],
-        },
-        {
             id: 'serviceType',
             type: 'single',
-            options: [
-                'espresso',
-                'milkBased',
-                'filter',
-                'coldBrew',
-                'mixed',
-            ],
+            options: ['espresso', 'milkBased', 'filter', 'coldBrew'],
         },
         {
-            id: 'dailyCoffeeDrinks',
+            id: 'intensity',
             type: 'single',
-            options: [
-                'lessThan30',
-                '30To70',
-                '70To150',
-                '150To300',
-                'moreThan300',
-            ],
+            options: intensityOptions,
+        },
+        {
+            id: 'customerFlavor',
+            type: 'multiple',
+            options: flavorOptions,
         },
         {
             id: 'monthlyCoffeeConsumption',
@@ -192,89 +124,9 @@ export const coffeeFinderQuestions = {
             ],
         },
         {
-            id: 'hasEspressoMachine',
-            type: 'single',
-            options: [
-                'yes',
-                'no',
-            ],
-        },
-        {
-            id: 'hasIndustrialGrinder',
-            type: 'single',
-            options: [
-                'yes',
-                'no',
-            ],
-        },
-        {
-            id: 'customerFlavor',
-            type: 'multiple',
-            options: [
-                'chocolate',
-                'caramel',
-                'nutty',
-                'fruity',
-                'floral',
-                'spicy',
-                'balanced',
-                'strong',
-            ],
-        },
-        {
-            id: 'priority',
-            type: 'multiple',
-            options: [
-                'qualityAndFlavor',
-                'price',
-                'profitMargin',
-                'highCaffeine',
-                'moreCrema',
-                'consistency',
-            ],
-        },
-        {
-            id: 'arabicaRobusta',
-            type: 'single',
-            options: [
-                '100Arabica',
-                'arabicaDominant',
-                'balancedBlend',
-                'robustaDominant',
-                '100Robusta',
-                'noPreference',
-            ],
-        },
-        {
             id: 'monthlyBudget',
             type: 'single',
-            options: [
-                'economy',
-                'medium',
-                'professional',
-                'unlimited',
-            ],
-        },
-        {
-            id: 'needsEquipment',
-            type: 'single',
-            options: [
-                'yes',
-                'no',
-            ],
-        },
-        {
-            id: 'equipmentNeeded',
-            type: 'multiple',
-            options: [
-                'grinder',
-                'tamper',
-                'scale',
-                'pitcher',
-                'knockBox',
-                'kettle',
-                'other',
-            ],
+            options: budgetOptions,
         },
     ],
 
@@ -291,79 +143,39 @@ export const coffeeFinderQuestions = {
             ],
         },
         {
-            id: 'officeDailyCups',
-            type: 'single',
-            options: [
-                'lessThan10',
-                '10To30',
-                '30To50',
-                'moreThan50',
-            ],
-        },
-        {
             id: 'officeBrewMethod',
             type: 'single',
             options: [
                 'espressoMachine',
-                'capsule',
+                'filter',
                 'mokaPot',
                 'instant',
-                'filter',
+                'capsule',
                 'none',
             ],
         },
         {
-            id: 'coffeeType',
+            id: 'intensity',
             type: 'single',
-            options: [
-                'arabica',
-                'robusta',
-                'blend',
-                'noPreference',
-            ],
+            showWhen: whenOfficeBeans,
+            options: intensityOptions,
         },
         {
             id: 'officeFlavor',
             type: 'multiple',
-            options: [
-                'chocolate',
-                'caramel',
-                'nutty',
-                'fruity',
-                'floral',
-                'spicy',
-            ],
-        },
-        {
-            id: 'monthlyConsumption',
-            type: 'single',
-            options: [
-                'lessThan2kg',
-                '2To5kg',
-                '5To10kg',
-                'moreThan10kg',
-            ],
-        },
-        {
-            id: 'officeNeedsEquipment',
-            type: 'single',
-            options: [
-                'yes',
-                'no',
-            ],
+            showWhen: whenOfficeBeans,
+            options: flavorOptions,
         },
         {
             id: 'officeBudget',
             type: 'single',
-            options: [
-                'economy',
-                'medium',
-                'professional',
-                'unlimited',
-            ],
+            showWhen: whenOfficeBeans,
+            options: budgetOptions,
         },
     ],
 
+    // خرید عمده محصول مستقیم پیشنهاد نمی‌شود؛ جواب‌ها فقط مسیر را مشخص می‌کنند
+    // و خروجی، تماس با فروش است.
     wholesale: [
         {
             id: 'purchasePurpose',
@@ -388,37 +200,6 @@ export const coffeeFinderQuestions = {
             ],
         },
         {
-            id: 'wholesaleCoffeeType',
-            type: 'single',
-            options: [
-                'arabica',
-                'robusta',
-                'blend',
-                'noPreference',
-            ],
-        },
-        {
-            id: 'quality',
-            type: 'single',
-            options: [
-                'economy',
-                'commercial',
-                'premium',
-                'specialty',
-            ],
-        },
-        {
-            id: 'orderVolume',
-            type: 'single',
-            options: [
-                '10To30kg',
-                '30To100kg',
-                '100To500kg',
-                '500kgTo1Ton',
-                'moreThan1Ton',
-            ],
-        },
-        {
             id: 'monthlyVolume',
             type: 'single',
             options: [
@@ -430,108 +211,14 @@ export const coffeeFinderQuestions = {
             ],
         },
         {
-            id: 'wholesaleFlavor',
-            type: 'multiple',
-            options: [
-                'chocolate',
-                'caramel',
-                'nutty',
-                'fruity',
-                'floral',
-                'spicy',
-                'balanced',
-                'strong',
-            ],
-        },
-        {
-            id: 'packaging',
-            type: 'single',
-            options: [
-                '250g',
-                '500g',
-                '1kg',
-                '5kg',
-                '10kg',
-                'bulk',
-            ],
-        },
-        {
             id: 'brand',
             type: 'single',
-            options: [
-                'farajahan',
-                'ownBrand',
-                'noBrand',
-            ],
-        },
-        {
-            id: 'customPackaging',
-            type: 'single',
-            options: [
-                'yes',
-                'no',
-            ],
+            options: ['farajahan', 'ownBrand', 'noBrand'],
         },
         {
             id: 'sampleBeforeOrder',
             type: 'single',
-            options: [
-                'yes',
-                'no',
-            ],
-        },
-        {
-            id: 'wholesaleBudget',
-            type: 'single',
-            options: [
-                'economy',
-                'medium',
-                'professional',
-                'unlimited',
-            ],
+            options: ['yes', 'no'],
         },
     ],
 };
-
-export const coffeeFinderFinalQuestions = [
-    {
-        id: 'basketType',
-        type: 'single',
-        options: [
-            'economy',
-            'farajahanRecommended',
-            'professional',
-        ],
-    },
-    {
-        id: 'removeProduct',
-        type: 'single',
-        options: [
-            'yes',
-            'no',
-        ],
-    },
-    {
-        id: 'addProduct',
-        type: 'single',
-        options: [
-            'yes',
-            'no',
-        ],
-    },
-    {
-        id: 'changeQuantity',
-        type: 'single',
-        options: [
-            'yes',
-            'no',
-        ],
-    },
-    {
-        id: 'confirmBasket',
-        type: 'single',
-        options: [
-            'confirm',
-        ],
-    },
-];

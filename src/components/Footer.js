@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
+import CoffeeFinderLink from '@/components/coffee-finder/CoffeeFinderLink';
 function InstagramIcon({ className }) {
     return (
         <svg
@@ -78,6 +79,12 @@ export default function Footer() {
                                 <Link href={`/${locale}/contact`} className="block text-cream/70 hover:text-gold transition text-sm">
                                     {t('link4')}
                                 </Link>
+                                <CoffeeFinderLink
+                                    locale={locale}
+                                    className="block text-cream/70 hover:text-gold transition text-sm"
+                                >
+                                    {t('link5')}
+                                </CoffeeFinderLink>
                             </nav>
                         </div>
 

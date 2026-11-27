@@ -3,7 +3,7 @@ import ShopProducts from '@/components/shop/ShopProducts';
 import { getProductCategoriesForAudience } from '@/lib/wordpress/categories';
 import { getProducts } from '@/lib/wordpress/products';
 import { mapWooProduct } from '@/lib/wordpress/mappers';
-
+import CoffeeFinderLink from '@/components/coffee-finder/CoffeeFinderLink';
 export const revalidate = 60;
 
 export default async function ShopPage({ params }) {
@@ -77,6 +77,20 @@ export default async function ShopPage({ params }) {
                         {isFa
                             ? 'همه‌ی محصولات فراجهان؛ با فیلتر دسته‌بندی، محصولات را محدود کنید.'
                             : 'All Farajahan products. Use the category filter to narrow them down.'}
+                    </p>
+                    <p className="mt-3 font-sans text-sm text-text-muted">
+                        {isFa
+                            ? 'نمی‌دانید کدام قهوه را بخرید؟ '
+                            : 'Not sure which coffee to buy? '}
+
+                        <CoffeeFinderLink
+                            locale={locale}
+                            className="font-semibold text-gold-dark underline-offset-4 transition hover:text-gold hover:underline"
+                        >
+                            {isFa ? 'راهنمای انتخاب قهوه' : 'Try the Coffee Finder'}
+                        </CoffeeFinderLink>
+
+                        {isFa ? ' فراجهان کمکتان می‌کند.' : '.'}
                     </p>
                 </div>
 

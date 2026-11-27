@@ -4,64 +4,33 @@ export function createInitialCoffeeFinderState() {
 
         answers: {
             // Home
-            experience: null,
-            drinkingTime: null,
-            dailyCups: null,
+            homeProductKind: null,
             brewMethod: null,
-            flavors: [],
-            intensity: null,
-            caffeine: null,
-            arabicaRobusta: null,
             hasGrinder: null,
-            equipmentStatus: null,
-            equipment: [],
+            intensity: null,
+            flavors: [],
             budget: null,
-            quantity: null,
+            powderKind: null,
+            powderSize: null,
 
-            // Cafe / Restaurant
-            cafeBusinessType: null,
+            // Cafe
             serviceType: null,
-            dailyCoffeeDrinks: null,
-            monthlyCoffeeConsumption: null,
-            hasEspressoMachine: null,
-            hasIndustrialGrinder: null,
             customerFlavor: [],
-            priority: [],
+            monthlyCoffeeConsumption: null,
             monthlyBudget: null,
-            needsEquipment: null,
-            equipmentNeeded: [],
 
             // Office
             numberOfUsers: null,
-            officeDailyCups: null,
             officeBrewMethod: null,
-            coffeeType: null,
             officeFlavor: [],
-            monthlyConsumption: null,
-            officeNeedsEquipment: null,
             officeBudget: null,
 
             // Wholesale
             purchasePurpose: null,
             productType: null,
-            wholesaleCoffeeType: null,
-            quality: null,
-            orderVolume: null,
             monthlyVolume: null,
-            wholesaleFlavor: [],
-            packaging: null,
             brand: null,
-            customPackaging: null,
             sampleBeforeOrder: null,
-            wholesaleBudget: null,
-        },
-
-        final: {
-            basketType: null,
-            removeProduct: null,
-            addProduct: null,
-            changeQuantity: null,
-            confirmBasket: false,
         },
     };
 }
@@ -114,17 +83,60 @@ export function toggleCoffeeFinderMultipleAnswer(
     };
 }
 
-export function updateCoffeeFinderFinalAnswer(
-    state,
-    questionId,
-    value
-) {
-    return {
-        ...state,
+/*
+ * سؤال‌های مشروط
+ */
 
-        final: {
-            ...state.final,
-            [questionId]: value,
-        },
-    };
+export function isQuestionVisible(question, answers) {
+    const conditions = question.showWhen;
+
+    if (!conditions) return true;
+
+    return Object.entries(conditions).every(([id, allowed]) =>
+        allowed.includes(answers[id])
+    );
+}
+
+export function getVisibleQuestions(questions, answers) {
+    return questions.filter((question) =>
+        isQuestionVisible(question, answers)
+    );
+}
+
+// تعداد کل مرحله‌ها برای نوار پیشرفت.
+// تا وقتی پاسخ سؤال کنترل‌کننده مشخص نیست، طولانی‌ترین شاخه را حساب می‌کنیم
+// تا عدد کل بعد از اولین پاسخ جابه‌جا نشود.
+export function estimateTotalSteps(questions, answers) {
+    const visibleCount = getVisibleQuestions(questions, answers).length;
+
+    const branches = new Map();
+
+    for (const question of questions) {
+        if (!question.showWhen || isQuestionVisible(question, answers)) {
+            continue;
+        }
+
+        for (const [controlId, allowed] of Object.entries(
+            question.showWhen
+        )) {
+            // پاسخ داده شده ولی مطابق نیست: این سؤال واقعاً پنهان است
+            if (answers[controlId]) continue;
+
+            const counts = branches.get(controlId) || new Map();
+
+            for (const value of allowed) {
+                counts.set(value, (counts.get(value) || 0) + 1);
+            }
+
+            branches.set(controlId, counts);
+        }
+    }
+
+    let extra = 0;
+
+    for (const counts of branches.values()) {
+        extra += Math.max(...counts.values());
+    }
+
+    return visibleCount + extra;
 }

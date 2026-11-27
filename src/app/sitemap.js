@@ -3,8 +3,9 @@ import { wordpressFetch } from '@/lib/wordpress/client';
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'https://farajahan.com';
 
-const LOCALES = ['fa', 'en'];
-
+// فقط فارسی ایندکس می‌شود (در layout.js نسخه‌ی انگلیسی noindex است).
+// وقتی انگلیسی را فعال کردید، 'en' را برگردانید و robots در layout.js را هم عوض کنید.
+const LOCALES = ['fa'];
 // نقشه سایت هر یک ساعت دوباره ساخته می‌شود
 export const revalidate = 3600;
 

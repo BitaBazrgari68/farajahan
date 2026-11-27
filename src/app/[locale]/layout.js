@@ -6,7 +6,7 @@ import { setRequestLocale } from 'next-intl/server';
 import AuthProvider from '@/components/providers/AuthProvider';
 import { notFound } from 'next/navigation';
 import { SITE_URL } from '@/lib/seo';
-
+const SUPPORTED_LOCALES = ['fa', 'en'];
 export function generateStaticParams() {
   return [
     { locale: 'fa' },
@@ -33,6 +33,9 @@ const SEO = {
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
+  if (!SUPPORTED_LOCALES.includes(locale)) {
+    return {};
+  }
   const seo = SEO[locale] || SEO.fa;
 
   return {
@@ -63,7 +66,7 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const SUPPORTED_LOCALES = ['fa', 'en'];
+
 
 export default async function RootLayout({ children, params }) {
   const { locale } = await params;

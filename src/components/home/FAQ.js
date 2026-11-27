@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import FAQMotion from '@/components/FAQMotion';
+import CoffeeFinderLink from '@/components/coffee-finder/CoffeeFinderLink';
 
+// isFinder: لینک این پرسش به باریستای فراجهان می‌رود (با کامپوننتی که پیشرفت قبلی را پاک می‌کند)
 const faqItems = [
   {
     id: 'arabicaRobusta',
@@ -17,7 +19,8 @@ const faqItems = [
   },
   {
     id: 'chooseCoffee',
-    href: '/shop/home',
+    href: '/coffee-finder',
+    isFinder: true,
   },
   {
     id: 'cafe',
@@ -28,6 +31,9 @@ const faqItems = [
     href: '/shop/business',
   },
 ];
+
+const faqLinkClassName =
+  'mt-4 inline-flex items-center gap-2 text-sm font-medium text-brown underline-offset-4 transition hover:underline';
 
 export default async function FAQ({ locale }) {
   const t = await getTranslations({
@@ -164,32 +170,39 @@ export default async function FAQ({ locale }) {
                       {t(`${item.id}.answer`)}
                     </p>
 
-                    <Link
-                      href={href}
-                      className="
-                        mt-4
-                        inline-flex
-                        items-center
-                        gap-2
-                        text-sm
-                        font-medium
-                        text-brown
-                        underline-offset-4
-                        transition
-                        hover:underline
-                      "
-                    >
-                      <span>
-                        {t(`${item.id}.linkLabel`)}
-                      </span>
-
-                      <span
-                        aria-hidden="true"
-                        className={isRTL ? 'rotate-180' : ''}
+                    {item.isFinder ? (
+                      <CoffeeFinderLink
+                        locale={locale}
+                        className={faqLinkClassName}
                       >
-                        →
-                      </span>
-                    </Link>
+                        <span>
+                          {t(`${item.id}.linkLabel`)}
+                        </span>
+
+                        <span
+                          aria-hidden="true"
+                          className={isRTL ? 'rotate-180' : ''}
+                        >
+                          →
+                        </span>
+                      </CoffeeFinderLink>
+                    ) : (
+                      <Link
+                        href={href}
+                        className={faqLinkClassName}
+                      >
+                        <span>
+                          {t(`${item.id}.linkLabel`)}
+                        </span>
+
+                        <span
+                          aria-hidden="true"
+                          className={isRTL ? 'rotate-180' : ''}
+                        >
+                          →
+                        </span>
+                      </Link>
+                    )}
                   </div>
 
                 </details>

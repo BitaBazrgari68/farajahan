@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
+import { clearCoffeeFinderProgress } from '@/lib/coffeeFinderStorage';
 
 export default function CoffeeFinderCTA() {
     const locale = useLocale();
@@ -93,9 +94,10 @@ export default function CoffeeFinderCTA() {
                             </p>
                             <div className='text-left'>
 
+                                {/* شروع از دکمه‌ی صفحه‌ی اول یعنی شروع تازه؛ پیشرفت قبلی پاک می‌شود */}
                                 <Link
                                     href={`/${locale}/coffee-finder`}
-                                    type="button"
+                                    onClick={clearCoffeeFinderProgress}
                                     className="mt-8 inline-flex  items-center justify-center rounded-2xl bg-gold px-7 py-3.5 text-sm font-semibold text-coffee-deep transition-colors duration-300 hover:bg-gold-light shadow-lg hover:shadow-xl"
                                 >
                                     {t('button')}
